@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:charm/features/painter.dart';
+import 'package:charm/features/resource_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 
 class SubView extends StatelessWidget {
@@ -17,17 +18,28 @@ class SubView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              BlocBuilder<ResourceBloc, ResourceState>(
+                builder: (context, state) => Text(
+                  'shapes: ${state.shapes.length}\nbgs: ${state.backgrounds.length}\nitems: ${state.items.length}',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("back"),
+              ),
               _box(
                 2,
                 Container(
                   width: 200,
                   height: 200,
-                  child: Image.asset("assets/images/GvP-V8Ba4AASp2H.jpeg"),
+                  child: Image.asset("assets/images/dark_noise.jpg"),
                 ),
               ),
               _box(
@@ -35,7 +47,7 @@ class SubView extends StatelessWidget {
                 Container(
                   width: 200,
                   height: 200,
-                  child: Image.asset("assets/images/GvP-V8Ba4AASp2H.jpeg"),
+                  child: Image.asset("assets/images/dark_noise.jpg"),
                 ),
               ),
               _box(
@@ -43,7 +55,7 @@ class SubView extends StatelessWidget {
                 Container(
                   width: 200,
                   height: 200,
-                  child: Image.asset("assets/images/GvP-V8Ba4AASp2H.jpeg"),
+                  child: Image.asset("assets/images/dark_noise.jpg"),
                 ),
               ),
               _box(
@@ -51,7 +63,7 @@ class SubView extends StatelessWidget {
                 Container(
                   width: 200,
                   height: 200,
-                  child: Image.asset("assets/images/GvP-V8Ba4AASp2H.jpeg"),
+                  child: Image.asset("assets/images/dark_noise.jpg"),
                 ),
               ),
               // Container(width: 50, height: 750, color: Colors.red),
@@ -102,14 +114,14 @@ class SubView extends StatelessWidget {
   }
 }
 
-class MainView extends StatefulWidget {
-  const MainView({super.key});
+class TestView extends StatefulWidget {
+  const TestView({super.key});
 
   @override
-  State<MainView> createState() => _MainViewState();
+  State<TestView> createState() => _TestViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _TestViewState extends State<TestView> {
   double scale = 1;
 
   final StreamController<TiltStreamModel> tiltStreamController =
