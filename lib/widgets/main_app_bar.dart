@@ -2,9 +2,10 @@ import 'package:charm/widgets/main_back_button.dart';
 import 'package:flutter/material.dart';
 
 class MainAppBar extends StatelessWidget {
-  const MainAppBar({super.key, this.title, this.actions, this.showBack = true});
+  const MainAppBar({super.key, this.title, this.leading, this.actions, this.showBack = true});
 
   final String? title;
+  final Widget? leading;
   final List<Widget>? actions;
   final bool showBack;
 
@@ -15,7 +16,7 @@ class MainAppBar extends StatelessWidget {
       child: Row(
         spacing: 8,
         children: [
-          if (showBack & Navigator.of(context).canPop()) MainBackButton(),
+          leading ?? ((showBack & Navigator.of(context).canPop()) ? MainBackButton() : SizedBox()),
           Expanded(
             child: Text(
               title ?? "",

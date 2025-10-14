@@ -1,4 +1,7 @@
-import 'package:charm/widgets/parse_preset_button.dart';
+import 'package:blur/blur.dart';
+import 'package:charm/features/inspect_view.dart';
+import 'package:charm/widgets/app_icon_button.dart';
+import 'package:charm/widgets/main_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +10,8 @@ import '../models/item_model.dart';
 import '../models/omamori_model.dart';
 import '../widgets/app_text_button.dart';
 import '../widgets/base_scaffold.dart';
+import '../widgets/omamori_static.dart';
+import '../widgets/parse_preset_button.dart';
 import '../widgets/tag_filter_button.dart';
 import 'component_detail_view.dart';
 import 'customisation_bloc.dart';
@@ -50,6 +55,7 @@ class _CustomisationViewState extends State<CustomisationView> {
   Widget buildContent(BuildContext context) {
     return BaseScaffold(
       title: "Customisation",
+      leading: MainBackButton(askConfirm: true),
       actions: [
         AppTextButton(
           onPressed: () {
@@ -75,7 +81,7 @@ class _CustomisationViewState extends State<CustomisationView> {
                         );
                       },
                       isFocused: state.focusedEditing == CustomisationConstant.description,
-                      text: 'Description',
+                      text: 'Information',
                     ),
                     AppTextButton(
                       onPressed: () {
@@ -160,14 +166,54 @@ class _CustomisationViewState extends State<CustomisationView> {
           flex: 1,
           child: Padding(
             padding: EdgeInsets.all(16),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Blur(
+                            blur: 5,
+                            child: SizedBox(
+                              width: double.maxFinite,
+                              height: double.maxFinite,
+                              child: Image.network("https://picsum.photos/200", fit: BoxFit.cover),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: OmamoriStatic(
+                            omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: AppIconButton(
+                    onPressed: () {
+                      pushView(
+                        context,
+                        InspectView(
+                          omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.zoom_in),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -307,6 +353,7 @@ class _CustomisationViewState extends State<CustomisationView> {
   }
 
   Widget buildComponentBackground<S>({required BuildContext context}) {
+    // TODO: select color
     return buildComponentSelectSection(
       context: context,
       items: context.read<ResourceBloc>().state.backgrounds.values.toList(),
@@ -350,6 +397,7 @@ class _CustomisationViewState extends State<CustomisationView> {
         },
         isSelected: state.omamoriModel?.itemPrimaryId == item.id,
         child: _buildItemBox(context, item, state.omamoriModel?.itemPrimaryId == item.id),
+        label: item.name,
       ),
     );
   }
@@ -366,6 +414,7 @@ class _CustomisationViewState extends State<CustomisationView> {
         },
         isSelected: state.omamoriModel?.itemSecondaryId1 == item.id,
         child: _buildItemBox(context, item, state.omamoriModel?.itemSecondaryId1 == item.id),
+        label: item.name,
       ),
     );
   }
@@ -382,22 +431,41 @@ class _CustomisationViewState extends State<CustomisationView> {
         },
         isSelected: state.omamoriModel?.itemSecondaryId2 == item.id,
         child: _buildItemBox(context, item, state.omamoriModel?.itemSecondaryId2 == item.id),
+        label: item.name,
       ),
     );
   }
 
-  Widget _buildBox({required Function() onTap, required bool isSelected, required Widget child}) {
+  Widget _buildBox({
+    required Function() onTap,
+    required bool isSelected,
+    required Widget child,
+    String? label,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 75,
-        height: 75,
-        decoration: BoxDecoration(
-          color: Colors.blueGrey.shade100,
-          borderRadius: BorderRadius.circular(16),
-          border: BoxBorder.all(color: Colors.blueGrey, width: isSelected ? 2 : 1),
+        constraints: BoxConstraints(maxWidth: 75),
+        child: Column(
+          children: [
+            Container(
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey.shade100,
+                borderRadius: BorderRadius.circular(16),
+                border: BoxBorder.all(color: Colors.blueGrey, width: isSelected ? 2 : 1),
+              ),
+              child: Center(child: child),
+            ),
+            if (label != null)
+              Text(
+                label,
+                style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+                overflow: TextOverflow.ellipsis,
+              ),
+          ],
         ),
-        child: Center(child: child),
       ),
     );
   }
@@ -408,9 +476,9 @@ class _CustomisationViewState extends State<CustomisationView> {
         Center(child: Text(item.id)),
         if (isSelected)
           Positioned(
-            bottom: 0,
-            right: 0,
-            child: IconButton(
+            top: 4,
+            right: 4,
+            child: AppIconButton(
               onPressed: () {
                 pushView(context, ComponentDetailView(itemModel: item));
               },

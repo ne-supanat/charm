@@ -5,12 +5,14 @@ class BaseScaffold extends StatelessWidget {
   const BaseScaffold({
     super.key,
     this.title,
+    this.leading,
     this.actions,
     required this.body,
     this.showBack = true,
   });
 
   final String? title;
+  final Widget? leading;
   final List<Widget>? actions;
   final Widget body;
   final bool showBack;
@@ -22,7 +24,7 @@ class BaseScaffold extends StatelessWidget {
         backgroundColor: Color(0xFFEBEBEB),
         body: Column(
           children: [
-            MainAppBar(title: title, actions: actions, showBack: showBack),
+            MainAppBar(title: title, leading: leading, actions: actions, showBack: showBack),
             Expanded(child: body),
           ],
         ),
