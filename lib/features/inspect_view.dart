@@ -29,7 +29,15 @@ class InspectView extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(child: OmamoriPlay(omamoriModel: omamoriModel)),
+          Positioned(
+            child: Center(
+              child: SizedBox(
+                width: 500,
+                height: 500,
+                child: OmamoriPlay(omamoriModel: omamoriModel),
+              ),
+            ),
+          ),
           Positioned(top: 16, left: 16, child: MainBackButton()),
           Positioned(
             top: 16,

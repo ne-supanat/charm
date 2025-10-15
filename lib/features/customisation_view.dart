@@ -55,7 +55,37 @@ class _CustomisationViewState extends State<CustomisationView> {
   Widget buildContent(BuildContext context) {
     return BaseScaffold(
       title: "Customisation",
-      leading: MainBackButton(askConfirm: true),
+      leading: MainBackButton(
+        onPressed: () async {
+          await showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return AlertDialog(
+                title: Text("Warning"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [Text("Unsaved changes will be loss, do you wish to continue?")],
+                ),
+                actions: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                    },
+                    child: Text("Cancel"),
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Confirm"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
       actions: [
         AppTextButton(
           onPressed: () {
@@ -190,8 +220,10 @@ class _CustomisationViewState extends State<CustomisationView> {
                         ),
                         Padding(
                           padding: EdgeInsets.all(16),
-                          child: OmamoriStatic(
-                            omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                          child: Center(
+                            child: OmamoriStatic(
+                              omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                            ),
                           ),
                         ),
                       ],
@@ -342,10 +374,15 @@ class _CustomisationViewState extends State<CustomisationView> {
       child: BlocBuilder<CustomisationBloc, CustomisationState>(
         buildWhen: buildWhen,
         builder: (context, state) {
-          return Wrap(
-            runSpacing: 16,
-            alignment: WrapAlignment.spaceBetween,
-            children: items.map((e) => buildChild(state, e)).toList(),
+          return Column(
+            children: [
+              Wrap(
+                runSpacing: 16,
+                spacing: 16,
+                alignment: WrapAlignment.start,
+                children: items.map((e) => buildChild(state, e)).toList(),
+              ),
+            ],
           );
         },
       ),
@@ -472,12 +509,11 @@ class _CustomisationViewState extends State<CustomisationView> {
 
   _buildItemBox(BuildContext context, ItemModel item, bool isSelected) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         Center(child: Text(item.id)),
         if (isSelected)
           Positioned(
-            top: 4,
-            right: 4,
             child: AppIconButton(
               onPressed: () {
                 pushView(context, ComponentDetailView(itemModel: item));
