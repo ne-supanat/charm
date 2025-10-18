@@ -1,4 +1,4 @@
-import 'package:charm/models/tags_constant.dart';
+import 'package:charm/data/model/tags_constant.dart';
 import 'package:charm/widgets/app_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';

@@ -1,4 +1,4 @@
-import 'package:charm/models/omamori_model.dart';
+import 'package:charm/data/model/omamori_model.dart';
 import 'package:flutter/material.dart';
 
 class OmamoriStatic extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 
-import '../models/omamori_model.dart';
+import '../data/model/omamori_model.dart';
 import '../widgets/app_icon_button.dart';
 import '../widgets/main_back_button.dart';
 import '../widgets/omamori_play.dart';

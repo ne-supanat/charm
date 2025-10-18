@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 
-import '../models/omamori_model.dart';
+import '../data/model/omamori_model.dart';
 
 class OmamoriPlay extends StatefulWidget {
   const OmamoriPlay({super.key, required this.omamoriModel});

@@ -1,11 +1,11 @@
-import 'package:charm/features/component_detail_view.dart';
-import 'package:charm/features/util.dart';
+import 'package:charm/representation/component_detail_view.dart';
+import 'package:charm/representation/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/omamori_model.dart';
+import '../data/model/omamori_model.dart';
 import '../widgets/app_icon_button.dart';
 import '../widgets/app_text_button.dart';
 import '../widgets/base_scaffold.dart';
@@ -27,8 +27,8 @@ class InspectDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (omamoriModel.description.isNotEmpty) Text(omamoriModel.description),
-            if (omamoriModel.description.isNotEmpty) SizedBox(height: 16),
+            if (omamoriModel.description?.isNotEmpty ?? false) Text(omamoriModel.description!),
+            if (omamoriModel.description?.isNotEmpty ?? false) SizedBox(height: 16),
             Text('Material', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             buildComponentsText(context),
             SizedBox(height: 16),
@@ -55,16 +55,21 @@ class InspectDetailView extends StatelessWidget {
     // Expecteced output:
     // component1 • component2 • component3
 
-    final ids = [
-      omamoriModel.itemPrimaryId,
-      omamoriModel.itemSecondaryId1,
-      omamoriModel.itemSecondaryId2,
-    ];
+    final ids = [];
+    if (omamoriModel.itemPrimaryId != null) {
+      ids.add(omamoriModel.itemPrimaryId);
+    }
+    if (omamoriModel.itemSecondaryId1 != null) {
+      ids.add(omamoriModel.itemSecondaryId1);
+    }
+    if (omamoriModel.itemSecondaryId2 != null) {
+      ids.add(omamoriModel.itemSecondaryId2);
+    }
 
     final textSpans = <InlineSpan>[];
 
     for (int i = 0; i < ids.length; i++) {
-      final item = context.read<ResourceBloc>().getItemById(ids[i]);
+      final item = context.read<ResourceBloc>().getItemById(ids[i]!);
 
       if (item != null) {
         textSpans.add(

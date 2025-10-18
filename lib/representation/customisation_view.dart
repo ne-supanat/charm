@@ -1,27 +1,30 @@
+import 'dart:io';
+
 import 'package:blur/blur.dart';
-import 'package:charm/features/inspect_view.dart';
-import 'package:charm/widgets/app_icon_button.dart';
-import 'package:charm/widgets/main_back_button.dart';
+import 'package:charm/representation/catalog_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/customisation_constant.dart';
-import '../models/item_model.dart';
-import '../models/omamori_model.dart';
+import '../data/model/customisation_constant.dart';
+import '../data/model/item_model.dart';
+import '../data/model/omamori_model.dart';
+import '../widgets/app_icon_button.dart';
 import '../widgets/app_text_button.dart';
 import '../widgets/base_scaffold.dart';
+import '../widgets/main_back_button.dart';
 import '../widgets/omamori_static.dart';
 import '../widgets/parse_preset_button.dart';
 import '../widgets/tag_filter_button.dart';
 import 'component_detail_view.dart';
 import 'customisation_bloc.dart';
+import 'inspect_view.dart';
 import 'resource_bloc.dart';
 import 'util.dart';
 
 class CustomisationView extends StatefulWidget {
-  const CustomisationView({super.key, this.omamoriModel});
+  const CustomisationView({super.key, required this.omamoriModel});
 
-  final OmamoriModel? omamoriModel;
+  final OmamoriModel omamoriModel;
 
   @override
   State<CustomisationView> createState() => _CustomisationViewState();
@@ -34,16 +37,14 @@ class _CustomisationViewState extends State<CustomisationView> {
   @override
   void initState() {
     super.initState();
-    textEditingControllerTitle = TextEditingController(text: widget.omamoriModel?.title);
-    textEditingControllerDesc = TextEditingController(text: widget.omamoriModel?.description);
+    textEditingControllerTitle = TextEditingController(text: widget.omamoriModel.title);
+    textEditingControllerDesc = TextEditingController(text: widget.omamoriModel.description);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CustomisationBloc(
-        CustomisationState(omamoriModel: widget.omamoriModel ?? OmamoriModel.init()),
-      ),
+      create: (context) => CustomisationBloc(CustomisationState(omamoriModel: widget.omamoriModel)),
       child: Builder(
         builder: (context) {
           return buildContent(context);
@@ -88,8 +89,15 @@ class _CustomisationViewState extends State<CustomisationView> {
       ),
       actions: [
         AppTextButton(
-          onPressed: () {
-            // TODO: save to db
+          onPressed: () async {
+            try {
+              await context.read<CustomisationBloc>().save();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Saved')));
+
+              await context.read<CatalogBloc>().loadCatalog();
+            } on HttpException catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+            }
           },
           text: "Save",
         ),
@@ -154,6 +162,9 @@ class _CustomisationViewState extends State<CustomisationView> {
               filled: true,
               border: OutlineInputBorder(),
             ),
+            onChanged: (value) {
+              context.read<CustomisationBloc>().updateTitle(value);
+            },
           ),
           SizedBox(height: 16),
           Text("Description", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -169,6 +180,9 @@ class _CustomisationViewState extends State<CustomisationView> {
             ),
             minLines: 3,
             maxLines: null,
+            onChanged: (value) {
+              context.read<CustomisationBloc>().updateDescription(value);
+            },
           ),
           SizedBox(height: 16),
           Center(
@@ -177,8 +191,8 @@ class _CustomisationViewState extends State<CustomisationView> {
                 final bloc = context.read<CustomisationBloc>();
                 bloc.parseFromCode("");
 
-                textEditingControllerTitle.text = bloc.state.omamoriModel?.title ?? "";
-                textEditingControllerDesc.text = bloc.state.omamoriModel?.description ?? "";
+                textEditingControllerTitle.text = bloc.state.omamoriModel.title;
+                textEditingControllerDesc.text = bloc.state.omamoriModel.description ?? "";
 
                 Navigator.of(btsContext).pop();
               },
@@ -222,7 +236,7 @@ class _CustomisationViewState extends State<CustomisationView> {
                           padding: EdgeInsets.all(16),
                           child: Center(
                             child: OmamoriStatic(
-                              omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                              omamoriModel: context.read<CustomisationBloc>().state.omamoriModel,
                             ),
                           ),
                         ),
@@ -238,7 +252,7 @@ class _CustomisationViewState extends State<CustomisationView> {
                       pushView(
                         context,
                         InspectView(
-                          omamoriModel: context.read<CustomisationBloc>().state.omamoriModel!,
+                          omamoriModel: context.read<CustomisationBloc>().state.omamoriModel,
                         ),
                       );
                     },
@@ -395,13 +409,13 @@ class _CustomisationViewState extends State<CustomisationView> {
       context: context,
       items: context.read<ResourceBloc>().state.backgrounds.values.toList(),
       buildWhen: (previous, current) =>
-          previous.omamoriModel?.backgroundId != current.omamoriModel?.backgroundId,
+          previous.omamoriModel.backgroundId != current.omamoriModel.backgroundId,
       buildChild: (state, item) => _buildBox(
         onTap: () {
           context.read<CustomisationBloc>().updateBackground(item.id);
         },
-        isSelected: state.omamoriModel?.backgroundId == item.id,
-        child: Center(child: Text(item.id)),
+        isSelected: state.omamoriModel.backgroundId == item.id,
+        child: Center(child: Text(item.id.toString())),
       ),
     );
   }
@@ -409,15 +423,15 @@ class _CustomisationViewState extends State<CustomisationView> {
   Widget buildComponentShape<S>({required BuildContext context}) {
     return buildComponentSelectSection(
       context: context,
-      items: context.read<ResourceBloc>().state.shapes.values.toList(),
+      items: context.read<ResourceBloc>().state.patterns.values.toList(),
       buildWhen: (previous, current) =>
-          previous.omamoriModel?.shapeId != current.omamoriModel?.shapeId,
+          previous.omamoriModel.patternId != current.omamoriModel.patternId,
       buildChild: (state, item) => _buildBox(
         onTap: () {
           context.read<CustomisationBloc>().updateShape(item.id);
         },
-        isSelected: state.omamoriModel?.shapeId == item.id,
-        child: Center(child: Text(item.id)),
+        isSelected: state.omamoriModel.patternId == item.id,
+        child: Center(child: Text(item.id.toString())),
       ),
     );
   }
@@ -427,13 +441,13 @@ class _CustomisationViewState extends State<CustomisationView> {
       context: context,
       items: context.read<ResourceBloc>().state.items.values.toList(),
       buildWhen: (previous, current) =>
-          previous.omamoriModel?.itemPrimaryId != current.omamoriModel?.itemPrimaryId,
+          previous.omamoriModel.itemPrimaryId != current.omamoriModel.itemPrimaryId,
       buildChild: (state, item) => _buildBox(
         onTap: () {
           context.read<CustomisationBloc>().updateItemPrimary(item.id);
         },
-        isSelected: state.omamoriModel?.itemPrimaryId == item.id,
-        child: _buildItemBox(context, item, state.omamoriModel?.itemPrimaryId == item.id),
+        isSelected: state.omamoriModel.itemPrimaryId == item.id,
+        child: _buildItemBox(context, item, state.omamoriModel.itemPrimaryId == item.id),
         label: item.name,
       ),
     );
@@ -444,13 +458,13 @@ class _CustomisationViewState extends State<CustomisationView> {
       context: context,
       items: context.read<ResourceBloc>().state.items.values.toList(),
       buildWhen: (previous, current) =>
-          previous.omamoriModel?.itemSecondaryId1 != current.omamoriModel?.itemSecondaryId1,
+          previous.omamoriModel.itemSecondaryId1 != current.omamoriModel.itemSecondaryId1,
       buildChild: (state, item) => _buildBox(
         onTap: () {
           context.read<CustomisationBloc>().updateItemSecondary1(item.id);
         },
-        isSelected: state.omamoriModel?.itemSecondaryId1 == item.id,
-        child: _buildItemBox(context, item, state.omamoriModel?.itemSecondaryId1 == item.id),
+        isSelected: state.omamoriModel.itemSecondaryId1 == item.id,
+        child: _buildItemBox(context, item, state.omamoriModel.itemSecondaryId1 == item.id),
         label: item.name,
       ),
     );
@@ -461,13 +475,13 @@ class _CustomisationViewState extends State<CustomisationView> {
       context: context,
       items: context.read<ResourceBloc>().state.items.values.toList(),
       buildWhen: (previous, current) =>
-          previous.omamoriModel?.itemSecondaryId2 != current.omamoriModel?.itemSecondaryId2,
+          previous.omamoriModel.itemSecondaryId2 != current.omamoriModel.itemSecondaryId2,
       buildChild: (state, item) => _buildBox(
         onTap: () {
           context.read<CustomisationBloc>().updateItemSecondary2(item.id);
         },
-        isSelected: state.omamoriModel?.itemSecondaryId2 == item.id,
-        child: _buildItemBox(context, item, state.omamoriModel?.itemSecondaryId2 == item.id),
+        isSelected: state.omamoriModel.itemSecondaryId2 == item.id,
+        child: _buildItemBox(context, item, state.omamoriModel.itemSecondaryId2 == item.id),
         label: item.name,
       ),
     );
@@ -511,7 +525,7 @@ class _CustomisationViewState extends State<CustomisationView> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Center(child: Text(item.id)),
+        Center(child: Text(item.id.toString())),
         if (isSelected)
           Positioned(
             child: AppIconButton(

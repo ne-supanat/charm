@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:charm/features/resource_bloc.dart';
+import 'package:charm/representation/resource_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class SubView extends StatelessWidget {
             children: [
               BlocBuilder<ResourceBloc, ResourceState>(
                 builder: (context, state) => Text(
-                  'shapes: ${state.shapes.length}\nbgs: ${state.backgrounds.length}\nitems: ${state.items.length}',
+                  'shapes: ${state.patterns.length}\nbgs: ${state.backgrounds.length}\nitems: ${state.items.length}',
                 ),
               ),
               ElevatedButton(

@@ -1,8 +1,9 @@
-import 'package:charm/widgets/app_text_button.dart';
+import 'package:charm/representation/signin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/omamori_model.dart';
+import '../data/model/omamori_model.dart';
+import '../widgets/app_text_button.dart';
 import '../widgets/base_scaffold.dart';
 import 'catalog_bloc.dart';
 import 'customisation_view.dart';
@@ -10,37 +11,47 @@ import 'inspect_view.dart';
 import 'resource_bloc.dart';
 import 'util.dart';
 
-class CatalogView extends StatelessWidget {
+class CatalogView extends StatefulWidget {
   const CatalogView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CatalogBloc(CatalogState())..loadCatalog(),
-      child: Builder(
-        builder: (context) {
-          return buildContent(context);
-        },
-      ),
-    );
+  State<CatalogView> createState() => _CatalogViewState();
+}
+
+class _CatalogViewState extends State<CatalogView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await context.read<CatalogBloc>().loadCatalog();
+    });
   }
 
-  Widget buildContent(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return BaseScaffold(
       title: 'Catalog',
       actions: [
         AppTextButton(
-          onPressed: () {
-            context.read<CatalogBloc>().addNewOmamori();
+          onPressed: () async {
+            await context.read<CatalogBloc>().addNewOmamori();
           },
           text: "Add",
+        ),
+        SizedBox(width: 8),
+        AppTextButton(
+          onPressed: () async {
+            context.read<CatalogBloc>().logout();
+            replaceView(context, SigninView());
+          },
+          text: "Log Out",
         ),
       ],
       body: Column(
         children: [
           Expanded(
             child: BlocBuilder<CatalogBloc, CatalogState>(
-              buildWhen: (previous, current) => previous.catalog.length != current.catalog.length,
+              buildWhen: (previous, current) => previous.catalog != current.catalog,
               builder: (context, state) {
                 return ListView.builder(
                   itemCount: state.catalog.length,
@@ -54,7 +65,7 @@ class CatalogView extends StatelessWidget {
           BlocBuilder<CatalogBloc, CatalogState>(
             buildWhen: (previous, current) => previous.selectedPreset != current.selectedPreset,
             builder: (context, state) {
-              if (state.selectedPreset.isNotEmpty) {
+              if (state.selectedPreset != -1) {
                 return Container(
                   decoration: BoxDecoration(
                     border: Border(top: BorderSide(color: Color(0xFFD9D9D9))),
@@ -75,7 +86,7 @@ class CatalogView extends StatelessWidget {
                           final state = context.read<CatalogBloc>().state;
                           pushView(
                             context,
-                            CustomisationView(omamoriModel: state.catalog[state.selectedPreset]),
+                            CustomisationView(omamoriModel: state.catalog[state.selectedPreset]!),
                           );
                         },
                         child: Text("Edit"),
@@ -104,9 +115,16 @@ class CatalogView extends StatelessWidget {
   Widget buildItemTile(BuildContext context, OmamoriModel omamori) {
     final bloc = context.read<ResourceBloc>();
 
-    final itemPrimary = bloc.getItemById(omamori.itemPrimaryId);
-    final itemSecondary1 = bloc.getItemById(omamori.itemSecondaryId1);
-    final itemSecondary2 = bloc.getItemById(omamori.itemSecondaryId2);
+    final items = [];
+    if (omamori.itemPrimaryId != null && bloc.getItemById(omamori.itemPrimaryId!) != null) {
+      items.add(bloc.getItemById(omamori.itemPrimaryId!)!.name);
+    }
+    if (omamori.itemSecondaryId1 != null && bloc.getItemById(omamori.itemSecondaryId1!) != null) {
+      items.add(bloc.getItemById(omamori.itemSecondaryId1!)?.name);
+    }
+    if (omamori.itemSecondaryId2 != null && bloc.getItemById(omamori.itemSecondaryId2!) != null) {
+      items.add(bloc.getItemById(omamori.itemSecondaryId2!)?.name);
+    }
 
     return BlocBuilder<CatalogBloc, CatalogState>(
       builder: (context, state) {
@@ -131,9 +149,7 @@ class CatalogView extends StatelessWidget {
             omamori.title,
             style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
           ),
-          subtitle: Text(
-            [itemPrimary?.name, itemSecondary1?.name, itemSecondary2?.name].join(" • "),
-          ),
+          subtitle: Text(items.join(" • ")),
         );
       },
     );

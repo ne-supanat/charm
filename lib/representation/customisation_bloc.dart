@@ -1,18 +1,22 @@
-import 'package:charm/features/util.dart';
-import 'package:charm/models/customisation_constant.dart';
-import 'package:charm/models/omamori_model.dart';
-import 'package:charm/models/tags_constant.dart';
+import 'dart:developer';
+
+import '../data/repository/preset_repository.dart';
+import 'util.dart';
+import '../data/model/customisation_constant.dart';
+import '../data/model/omamori_model.dart';
+import '../data/model/tags_constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class CustomisationState {
-  final OmamoriModel? omamoriModel;
+  final OmamoriModel omamoriModel;
 
   final CustomisationConstant focusedEditing;
   final ComponentConstant focusedCustomisationComponent;
   final Tag selectedTag;
 
   CustomisationState({
-    this.omamoriModel,
+    required this.omamoriModel,
     this.focusedEditing = CustomisationConstant.description,
     this.focusedCustomisationComponent = ComponentConstant.background,
     this.selectedTag = Tag.all,
@@ -37,6 +41,8 @@ class CustomisationState {
 class CustomisationBloc extends Cubit<CustomisationState> {
   CustomisationBloc(super.initialState);
 
+  final PresetRepository presetRepository = GetIt.I<PresetRepository>();
+
   void updateFocusedEditing(CustomisationConstant selectedEditing) {
     emit(state.copyWith(focusedEditing: selectedEditing));
   }
@@ -45,12 +51,20 @@ class CustomisationBloc extends Cubit<CustomisationState> {
     emit(state.copyWith(focusedCustomisationComponent: selectedComponent));
   }
 
+  void updateTitle(String newTitle) {
+    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(title: newTitle)));
+  }
+
+  void updateDescription(String newDescription) {
+    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(description: newDescription)));
+  }
+
   void updateShape(newShape) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel?.copyWith(shapeId: newShape)));
+    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(patternId: newShape)));
   }
 
   void updateBackground(newBackground) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel?.copyWith(backgroundId: newBackground)));
+    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(backgroundId: newBackground)));
   }
 
   void updateTag(newTag) {
@@ -58,26 +72,31 @@ class CustomisationBloc extends Cubit<CustomisationState> {
   }
 
   void updateItemPrimary(newItemPrimary) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel?.copyWith(itemPrimaryId: newItemPrimary)));
+    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(itemPrimaryId: newItemPrimary)));
   }
 
   void updateItemSecondary1(newItemSecondary) {
     emit(
-      state.copyWith(
-        omamoriModel: state.omamoriModel?.copyWith(itemSecondaryId1: newItemSecondary),
-      ),
+      state.copyWith(omamoriModel: state.omamoriModel.copyWith(itemSecondaryId1: newItemSecondary)),
     );
   }
 
   void updateItemSecondary2(newItemSecondary) {
     emit(
-      state.copyWith(
-        omamoriModel: state.omamoriModel?.copyWith(itemSecondaryId2: newItemSecondary),
-      ),
+      state.copyWith(omamoriModel: state.omamoriModel.copyWith(itemSecondaryId2: newItemSecondary)),
     );
   }
 
   void parseFromCode(String code) {
     emit(state.copyWith(omamoriModel: convertCodeToOmamori(code)));
+  }
+
+  Future<void> save() async {
+    try {
+      await presetRepository.updatePreset(state.omamoriModel);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 }
