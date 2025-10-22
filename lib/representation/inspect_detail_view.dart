@@ -1,3 +1,4 @@
+import 'package:charm/global/colors.dart';
 import 'package:charm/representation/component_detail_view.dart';
 import 'package:charm/representation/util.dart';
 import 'package:flutter/gestures.dart';
@@ -27,19 +28,25 @@ class InspectDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (omamoriModel.description?.isNotEmpty ?? false) Text(omamoriModel.description!),
+            if (omamoriModel.description?.isNotEmpty ?? false)
+              Text(omamoriModel.description!, style: Theme.of(context).textTheme.bodyMedium),
             if (omamoriModel.description?.isNotEmpty ?? false) SizedBox(height: 16),
-            Text('Material', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('Material', style: Theme.of(context).textTheme.titleMedium),
             buildComponentsText(context),
             SizedBox(height: 16),
-            Text('Code', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('Code', style: Theme.of(context).textTheme.titleMedium),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('code'),
+                Text(
+                  convertOmamoriToCode(omamoriModel),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 AppTextButton(
                   onPressed: () async {
-                    await Clipboard.setData(ClipboardData(text: "code"));
+                    await Clipboard.setData(
+                      ClipboardData(text: convertOmamoriToCode(omamoriModel)),
+                    );
                   },
                   text: 'Copy',
                 ),
@@ -56,14 +63,14 @@ class InspectDetailView extends StatelessWidget {
     // component1 • component2 • component3
 
     final ids = [];
-    if (omamoriModel.itemPrimaryId != null) {
-      ids.add(omamoriModel.itemPrimaryId);
+    if (omamoriModel.item1Id != null) {
+      ids.add(omamoriModel.item1Id);
     }
-    if (omamoriModel.itemSecondaryId1 != null) {
-      ids.add(omamoriModel.itemSecondaryId1);
+    if (omamoriModel.item2Id != null) {
+      ids.add(omamoriModel.item2Id);
     }
-    if (omamoriModel.itemSecondaryId2 != null) {
-      ids.add(omamoriModel.itemSecondaryId2);
+    if (omamoriModel.item3Id != null) {
+      ids.add(omamoriModel.item3Id);
     }
 
     final textSpans = <InlineSpan>[];
@@ -75,6 +82,7 @@ class InspectDetailView extends StatelessWidget {
         textSpans.add(
           TextSpan(
             text: item.name,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorSecondary),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 pushView(context, ComponentDetailView(itemModel: item));
@@ -83,7 +91,7 @@ class InspectDetailView extends StatelessWidget {
         );
 
         if (i < ids.length - 1) {
-          textSpans.add(TextSpan(text: " • "));
+          textSpans.add(TextSpan(text: " • ", style: Theme.of(context).textTheme.bodyMedium));
         }
       }
     }

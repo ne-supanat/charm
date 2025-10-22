@@ -1,3 +1,4 @@
+import 'package:charm/global/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../data/model/item_model.dart';
@@ -22,7 +23,7 @@ class ComponentDetailView extends StatelessWidget {
               height: 250,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF98978F)),
+                border: Border.all(color: colorPrimary),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset(
@@ -35,21 +36,20 @@ class ComponentDetailView extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF98978F)),
+                border: Border.all(color: colorPrimary),
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Name:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text(itemModel.name, style: TextStyle(fontSize: 16)),
+                  Text('Name:', style: Theme.of(context).textTheme.titleMedium),
+                  Text(itemModel.name, style: Theme.of(context).textTheme.bodyMedium),
                   SizedBox(height: 16),
-                  Text('Description:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text(itemModel.description, style: TextStyle(fontSize: 16)),
+                  Text('Description:', style: Theme.of(context).textTheme.titleMedium),
+                  Text(itemModel.description, style: Theme.of(context).textTheme.bodyMedium),
                   SizedBox(height: 16),
-                  Text('Tag', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text(itemModel.tags.join(" • "), style: TextStyle(fontSize: 16)),
+                  Text('Tag', style: Theme.of(context).textTheme.titleMedium),
+                  Text(itemModel.tags.join(" • "), style: Theme.of(context).textTheme.bodyMedium),
                 ],
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:charm/global/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppIconButton extends StatelessWidget {
@@ -6,18 +7,17 @@ class AppIconButton extends StatelessWidget {
   final Function()? onPressed;
   final Widget icon;
 
-  // use theme color
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      color: colorPrimary,
       onPressed: onPressed,
       icon: icon,
       padding: EdgeInsets.all(4),
       constraints: BoxConstraints(),
       style: IconButton.styleFrom(
-        side: BorderSide(color: Colors.blueGrey),
-        backgroundColor: Color(0xFFEBEBEB),
+        side: BorderSide(color: colorPrimary),
+        backgroundColor: colorWhite,
       ),
     );
   }

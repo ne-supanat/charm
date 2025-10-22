@@ -11,18 +11,16 @@ class MainAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final leadingWidget =
+        leading ?? ((showBack & Navigator.of(context).canPop()) ? MainBackButton() : null);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
         spacing: 8,
         children: [
-          leading ?? ((showBack & Navigator.of(context).canPop()) ? MainBackButton() : SizedBox()),
-          Expanded(
-            child: Text(
-              title ?? "",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF6A6A6A)),
-            ),
-          ),
+          if (leadingWidget != null) leadingWidget,
+          Expanded(child: Text(title ?? "", style: Theme.of(context).textTheme.headlineLarge)),
           if (actions != null) Row(children: actions!),
         ],
       ),

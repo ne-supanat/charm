@@ -1,4 +1,5 @@
-import 'package:charm/widgets/app_text_button.dart';
+import 'package:charm/widgets/app_icon_button.dart';
+import 'package:charm/widgets/app_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class ParsePresetButton extends StatelessWidget {
@@ -8,7 +9,7 @@ class ParsePresetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppTextButton(
+    return AppIconButton(
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -26,16 +27,8 @@ class ParsePresetButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text('Enter Preset Code', textAlign: TextAlign.center),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: "Code",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                  const Text('Enter Code', textAlign: TextAlign.center),
+                  AppTextFormField(hintText: "Code", onChanged: (value) {}),
                   FilledButton(
                     onPressed: () {
                       onConfirm(btsContext);
@@ -48,7 +41,7 @@ class ParsePresetButton extends StatelessWidget {
           },
         );
       },
-      text: 'Parse Preset Code',
+      icon: Icon(Icons.code_rounded),
     );
   }
 }

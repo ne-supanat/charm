@@ -21,7 +21,7 @@ class BaseScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFEBEBEB),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Column(
           children: [
             MainAppBar(title: title, leading: leading, actions: actions, showBack: showBack),

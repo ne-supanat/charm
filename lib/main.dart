@@ -1,5 +1,5 @@
-import 'package:charm/data/repository/preset_repository.dart';
-import 'package:charm/representation/catalog_bloc.dart';
+import 'package:charm/data/model/omamori_model.dart';
+import 'package:charm/representation/customisation_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +7,11 @@ import 'package:get_it/get_it.dart';
 
 import 'data/client.dart';
 import 'data/repository/auth_repository.dart';
+import 'data/repository/preset_repository.dart';
 import 'data/repository/resource_repository.dart';
 import 'global/sharedpref.dart';
+import 'global/theme.dart';
+import 'representation/catalog_bloc.dart';
 import 'representation/landing_view.dart';
 import 'representation/resource_bloc.dart';
 
@@ -43,10 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // TODO: theme
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6A6A6A)),
-      ),
+      theme: theme,
       home: LandingView(),
       debugShowCheckedModeBanner: false,
     );

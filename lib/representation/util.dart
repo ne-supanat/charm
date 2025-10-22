@@ -15,7 +15,7 @@ replaceView(BuildContext context, Widget view) {
 
 String convertOmamoriToCode(OmamoriModel omamoriModel) {
   // TODO: convert code
-  return "";
+  return "converted code";
 }
 
 OmamoriModel convertCodeToOmamori(String code) {
@@ -24,10 +24,10 @@ OmamoriModel convertCodeToOmamori(String code) {
     id: -1,
     title: "title",
     description: "description",
-    backgroundId: 0,
+    backgroundId: 1,
     patternId: 1,
-    itemPrimaryId: 2,
-    itemSecondaryId1: 4,
-    itemSecondaryId2: 5,
+    item1Id: 2,
+    item2Id: 4,
+    item3Id: 5,
   );
 }

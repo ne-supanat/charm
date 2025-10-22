@@ -4,9 +4,9 @@ class OmamoriModel {
   final String? description;
   final int? patternId;
   final int? backgroundId;
-  final int? itemPrimaryId;
-  final int? itemSecondaryId1;
-  final int? itemSecondaryId2;
+  final int? item1Id;
+  final int? item2Id;
+  final int? item3Id;
 
   OmamoriModel({
     required this.id,
@@ -14,9 +14,9 @@ class OmamoriModel {
     required this.description,
     required this.patternId,
     required this.backgroundId,
-    required this.itemPrimaryId,
-    required this.itemSecondaryId1,
-    required this.itemSecondaryId2,
+    required this.item1Id,
+    required this.item2Id,
+    required this.item3Id,
   });
 
   factory OmamoriModel.init() {
@@ -26,9 +26,9 @@ class OmamoriModel {
       description: "",
       patternId: -1,
       backgroundId: -1,
-      itemPrimaryId: -1,
-      itemSecondaryId1: -1,
-      itemSecondaryId2: -1,
+      item1Id: -1,
+      item2Id: -1,
+      item3Id: -1,
     );
   }
 
@@ -37,9 +37,9 @@ class OmamoriModel {
     String? description,
     int? patternId,
     int? backgroundId,
-    int? itemPrimaryId,
-    int? itemSecondaryId1,
-    int? itemSecondaryId2,
+    int? item1Id,
+    int? item2Id,
+    int? item3Id,
   }) {
     return OmamoriModel(
       id: id,
@@ -47,9 +47,22 @@ class OmamoriModel {
       description: description ?? this.description,
       patternId: patternId ?? this.patternId,
       backgroundId: backgroundId ?? this.backgroundId,
-      itemPrimaryId: itemPrimaryId ?? this.itemPrimaryId,
-      itemSecondaryId1: itemSecondaryId1 ?? this.itemSecondaryId1,
-      itemSecondaryId2: itemSecondaryId2 ?? this.itemSecondaryId2,
+      item1Id: item1Id ?? this.item1Id,
+      item2Id: item2Id ?? this.item2Id,
+      item3Id: item3Id ?? this.item3Id,
+    );
+  }
+
+  OmamoriModel updateComponents({required OmamoriModel omamoriModel}) {
+    return OmamoriModel(
+      id: id,
+      title: title,
+      description: description,
+      patternId: omamoriModel.patternId,
+      backgroundId: omamoriModel.backgroundId,
+      item1Id: omamoriModel.item1Id,
+      item2Id: omamoriModel.item2Id,
+      item3Id: omamoriModel.item3Id,
     );
   }
 
@@ -60,9 +73,9 @@ class OmamoriModel {
       description: json['description'],
       patternId: json['pattern_id'],
       backgroundId: json['background_id'],
-      itemPrimaryId: json['item_1_id'],
-      itemSecondaryId1: json['item_2_id'],
-      itemSecondaryId2: json['item_3_id'],
+      item1Id: json['item_1_id'],
+      item2Id: json['item_2_id'],
+      item3Id: json['item_3_id'],
     );
   }
 
@@ -73,9 +86,9 @@ class OmamoriModel {
       'description': description,
       // 'pattern_id': patternId,
       // 'background_id': backgroundId,
-      'item_1_id': itemPrimaryId,
-      'item_2_id': itemSecondaryId1,
-      'item_3_id': itemSecondaryId2,
+      'item_1_id': item1Id,
+      'item_2_id': item2Id,
+      'item_3_id': item3Id,
     };
   }
 }

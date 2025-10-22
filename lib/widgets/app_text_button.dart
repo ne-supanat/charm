@@ -1,3 +1,4 @@
+import 'package:charm/global/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextButton extends StatelessWidget {
@@ -21,13 +22,15 @@ class AppTextButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: Colors.blueGrey, width: isFocused ? 2 : 1),
+            border: Border.all(color: colorPrimary, width: isFocused ? 2 : 1),
           ),
           child:
               child ??
               Text(
                 text ?? "",
-                style: TextStyle(fontWeight: isFocused ? FontWeight.bold : FontWeight.normal),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: isFocused ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
         ),
       ),

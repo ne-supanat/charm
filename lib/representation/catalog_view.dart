@@ -1,3 +1,4 @@
+import 'package:charm/global/colors.dart';
 import 'package:charm/representation/signin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class _CatalogViewState extends State<CatalogView> {
           onPressed: () async {
             await context.read<CatalogBloc>().addNewOmamori();
           },
-          text: "Add",
+          text: "New",
         ),
         SizedBox(width: 8),
         AppTextButton(
@@ -53,10 +54,12 @@ class _CatalogViewState extends State<CatalogView> {
             child: BlocBuilder<CatalogBloc, CatalogState>(
               buildWhen: (previous, current) => previous.catalog != current.catalog,
               builder: (context, state) {
-                return ListView.builder(
+                return ListView.separated(
                   itemCount: state.catalog.length,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   itemBuilder: (context, index) =>
                       buildItemTile(context, state.catalog.values.toList()[index]),
+                  separatorBuilder: (context, index) => SizedBox(height: 8),
                 );
               },
             ),
@@ -89,7 +92,7 @@ class _CatalogViewState extends State<CatalogView> {
                             CustomisationView(omamoriModel: state.catalog[state.selectedPreset]!),
                           );
                         },
-                        child: Text("Edit"),
+                        child: Text("Customisation"),
                       ),
                       FilledButton(
                         onPressed: () {
@@ -116,40 +119,60 @@ class _CatalogViewState extends State<CatalogView> {
     final bloc = context.read<ResourceBloc>();
 
     final items = [];
-    if (omamori.itemPrimaryId != null && bloc.getItemById(omamori.itemPrimaryId!) != null) {
-      items.add(bloc.getItemById(omamori.itemPrimaryId!)!.name);
+    if (omamori.item1Id != null && bloc.getItemById(omamori.item1Id!) != null) {
+      items.add(bloc.getItemById(omamori.item1Id!)!.name);
     }
-    if (omamori.itemSecondaryId1 != null && bloc.getItemById(omamori.itemSecondaryId1!) != null) {
-      items.add(bloc.getItemById(omamori.itemSecondaryId1!)?.name);
+    if (omamori.item2Id != null && bloc.getItemById(omamori.item2Id!) != null) {
+      items.add(bloc.getItemById(omamori.item2Id!)?.name);
     }
-    if (omamori.itemSecondaryId2 != null && bloc.getItemById(omamori.itemSecondaryId2!) != null) {
-      items.add(bloc.getItemById(omamori.itemSecondaryId2!)?.name);
+    if (omamori.item3Id != null && bloc.getItemById(omamori.item3Id!) != null) {
+      items.add(bloc.getItemById(omamori.item3Id!)?.name);
     }
 
     return BlocBuilder<CatalogBloc, CatalogState>(
       builder: (context, state) {
         final isSelected = state.selectedPreset == omamori.id;
 
-        return ListTile(
+        return InkWell(
+          borderRadius: BorderRadius.circular(16),
           onTap: () {
             context.read<CatalogBloc>().select(omamori.id);
           },
-          leading: AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                border: isSelected
-                    ? Border.all(color: Colors.blueGrey.shade900, width: 2)
-                    : Border.all(color: Colors.blueGrey, width: 1),
-                borderRadius: BorderRadius.circular(8),
-              ),
+          child: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: isSelected ? colorPrimary : Colors.transparent, width: 2),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: colorPrimary, width: 1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        omamori.title,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                      Text(items.join(" • "), style: Theme.of(context).textTheme.bodyMedium),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          title: Text(
-            omamori.title,
-            style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
-          ),
-          subtitle: Text(items.join(" • ")),
         );
       },
     );
