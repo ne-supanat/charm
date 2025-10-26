@@ -1,22 +1,22 @@
 import 'dart:io';
 
-import 'package:charm/representation/signin_view.dart';
+import 'package:charm/representation/signup/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'catalog_view.dart';
-import 'signup_bloc.dart';
-import 'util.dart';
+import '../catalog/catalog_view.dart';
+import 'signin_bloc.dart';
+import '../util.dart';
 
-class SignupView extends StatelessWidget {
-  SignupView({super.key});
+class SigninView extends StatelessWidget {
+  SigninView({super.key});
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupBloc(SignupState()),
+      create: (context) => SigninBloc(SigninState()),
       child: Builder(
         builder: (context) {
           return buildContent(context);
@@ -38,7 +38,7 @@ class SignupView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Sign Up",
+                "Sign In",
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -51,7 +51,7 @@ class SignupView extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  context.read<SignupBloc>().updateEmail(value);
+                  context.read<SigninBloc>().updateEmail(value);
                 },
               ),
               TextFormField(
@@ -64,43 +64,27 @@ class SignupView extends StatelessWidget {
                 ),
                 obscureText: true,
                 onChanged: (value) {
-                  context.read<SignupBloc>().updatePassword(value);
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: "Confirm Password",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-                onChanged: (value) {
-                  context.read<SignupBloc>().updateConfirmPassword(value);
-                },
-                validator: (value) {
-                  return value == context.read<SignupBloc>().state.password ? null : "Not Matched";
+                  context.read<SigninBloc>().updatePassword(value);
                 },
               ),
               FilledButton(
                 onPressed: () async {
                   try {
                     if (_formKey.currentState!.validate()) {
-                      await context.read<SignupBloc>().signup();
+                      await context.read<SigninBloc>().signin();
                       replaceView(context, CatalogView());
                     }
                   } on HttpException catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
                   }
                 },
-                child: Text("Signup"),
+                child: Text("Signin"),
               ),
               OutlinedButton(
                 onPressed: () {
-                  replaceView(context, SigninView());
+                  pushView(context, SignupView());
                 },
-                child: Text("Signin"),
+                child: Text("Signup"),
               ),
             ],
           ),

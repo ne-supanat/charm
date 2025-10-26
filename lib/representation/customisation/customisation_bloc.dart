@@ -1,15 +1,15 @@
 import 'dart:developer';
 
-import '../data/repository/preset_repository.dart';
-import 'util.dart';
-import '../data/model/customisation_constant.dart';
-import '../data/model/omamori_model.dart';
-import '../data/model/tags_constant.dart';
+import '../../data/repository/preset_repository.dart';
+import '../util.dart';
+import '../../data/model/customisation_constant.dart';
+import '../../data/model/charm_model.dart';
+import '../../data/model/tags_constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class CustomisationState {
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   final CustomisationConstant focusedEditing;
   final ComponentConstant focusedCustomisationComponent;
@@ -21,7 +21,7 @@ class CustomisationState {
   int? selectedItem3Id;
 
   CustomisationState({
-    required this.omamoriModel,
+    required this.charmModel,
     this.focusedEditing = CustomisationConstant.description,
     this.focusedCustomisationComponent = ComponentConstant.background,
     this.selectedTag = Tag.all,
@@ -33,7 +33,7 @@ class CustomisationState {
   });
 
   copyWith({
-    OmamoriModel? omamoriModel,
+    CharmModel? charmModel,
     CustomisationConstant? focusedEditing,
     ComponentConstant? focusedCustomisationComponent,
     Tag? selectedTag,
@@ -44,7 +44,7 @@ class CustomisationState {
     int? selectedItem3Id,
   }) {
     return CustomisationState(
-      omamoriModel: omamoriModel ?? this.omamoriModel,
+      charmModel: charmModel ?? this.charmModel,
       focusedEditing: focusedEditing ?? this.focusedEditing,
       focusedCustomisationComponent:
           focusedCustomisationComponent ?? this.focusedCustomisationComponent,
@@ -66,11 +66,11 @@ class CustomisationBloc extends Cubit<CustomisationState> {
   void init() {
     emit(
       state.copyWith(
-        selectedBackgroundId: state.omamoriModel.backgroundId,
-        selectedPatternId: state.omamoriModel.patternId,
-        selectedItem1Id: state.omamoriModel.item1Id,
-        selectedItem2Id: state.omamoriModel.item2Id,
-        selectedItem3Id: state.omamoriModel.item3Id,
+        selectedBackgroundId: state.charmModel.backgroundId,
+        selectedPatternId: state.charmModel.patternId,
+        selectedItem1Id: state.charmModel.item1Id,
+        selectedItem2Id: state.charmModel.item2Id,
+        selectedItem3Id: state.charmModel.item3Id,
       ),
     );
   }
@@ -84,19 +84,19 @@ class CustomisationBloc extends Cubit<CustomisationState> {
   }
 
   void updateTitle(String newTitle) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(title: newTitle)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(title: newTitle)));
   }
 
   void updateDescription(String newDescription) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(description: newDescription)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(description: newDescription)));
   }
 
   void updatePattern(newShape) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(patternId: newShape)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(patternId: newShape)));
   }
 
   void updateBackground(newBackground) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(backgroundId: newBackground)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(backgroundId: newBackground)));
   }
 
   void updateTag(newTag) {
@@ -124,34 +124,34 @@ class CustomisationBloc extends Cubit<CustomisationState> {
   }
 
   void updateItem1(int itemId) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(item1Id: itemId)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(item1Id: itemId)));
   }
 
   void updateItem2(int itemId) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(item2Id: itemId)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(item2Id: itemId)));
   }
 
   void updateItem3(int itemId) {
-    emit(state.copyWith(omamoriModel: state.omamoriModel.copyWith(item3Id: itemId)));
+    emit(state.copyWith(charmModel: state.charmModel.copyWith(item3Id: itemId)));
   }
 
   void parseFromCode(String code) {
-    final newOmamori = convertCodeToOmamori(code);
+    final newCharm = convertCodeToCharm(code);
     emit(
       state.copyWith(
-        omamoriModel: state.omamoriModel.updateComponents(omamoriModel: newOmamori),
-        selectedBackgroundId: newOmamori.backgroundId,
-        selectedPatternId: newOmamori.patternId,
-        selectedItem1Id: newOmamori.item1Id,
-        selectedItem2Id: newOmamori.item2Id,
-        selectedItem3Id: newOmamori.item3Id,
+        charmModel: state.charmModel.updateComponents(charmModel: newCharm),
+        selectedBackgroundId: newCharm.backgroundId,
+        selectedPatternId: newCharm.patternId,
+        selectedItem1Id: newCharm.item1Id,
+        selectedItem2Id: newCharm.item2Id,
+        selectedItem3Id: newCharm.item3Id,
       ),
     );
   }
 
   Future<void> save() async {
     try {
-      await presetRepository.updatePreset(state.omamoriModel);
+      await presetRepository.updatePreset(state.charmModel);
     } catch (e) {
       log(e.toString());
       rethrow;

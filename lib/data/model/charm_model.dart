@@ -1,4 +1,4 @@
-class OmamoriModel {
+class CharmModel {
   final int id;
   final String title;
   final String? description;
@@ -8,7 +8,7 @@ class OmamoriModel {
   final int? item2Id;
   final int? item3Id;
 
-  OmamoriModel({
+  CharmModel({
     required this.id,
     required this.title,
     required this.description,
@@ -19,8 +19,8 @@ class OmamoriModel {
     required this.item3Id,
   });
 
-  factory OmamoriModel.init() {
-    return OmamoriModel(
+  factory CharmModel.init() {
+    return CharmModel(
       id: -1,
       title: "Preset",
       description: "",
@@ -32,7 +32,7 @@ class OmamoriModel {
     );
   }
 
-  OmamoriModel copyWith({
+  CharmModel copyWith({
     String? title,
     String? description,
     int? patternId,
@@ -41,7 +41,7 @@ class OmamoriModel {
     int? item2Id,
     int? item3Id,
   }) {
-    return OmamoriModel(
+    return CharmModel(
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -53,21 +53,21 @@ class OmamoriModel {
     );
   }
 
-  OmamoriModel updateComponents({required OmamoriModel omamoriModel}) {
-    return OmamoriModel(
+  CharmModel updateComponents({required CharmModel charmModel}) {
+    return CharmModel(
       id: id,
       title: title,
       description: description,
-      patternId: omamoriModel.patternId,
-      backgroundId: omamoriModel.backgroundId,
-      item1Id: omamoriModel.item1Id,
-      item2Id: omamoriModel.item2Id,
-      item3Id: omamoriModel.item3Id,
+      patternId: charmModel.patternId,
+      backgroundId: charmModel.backgroundId,
+      item1Id: charmModel.item1Id,
+      item2Id: charmModel.item2Id,
+      item3Id: charmModel.item3Id,
     );
   }
 
-  factory OmamoriModel.from(Map<String, dynamic> json) {
-    return OmamoriModel(
+  factory CharmModel.from(Map<String, dynamic> json) {
+    return CharmModel(
       id: json['id'],
       title: json['title'],
       description: json['description'],

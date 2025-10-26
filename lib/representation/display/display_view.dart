@@ -1,17 +1,17 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 
-import '../data/model/omamori_model.dart';
-import '../widgets/app_icon_button.dart';
-import '../widgets/main_back_button.dart';
-import '../widgets/omamori_play.dart';
-import 'inspect_detail_view.dart';
-import 'util.dart';
+import '../../data/model/charm_model.dart';
+import '../../widgets/app_icon_button.dart';
+import '../../widgets/main_back_button.dart';
+import '../../widgets/charm_play.dart';
+import '../display_detail/display_detail_view.dart';
+import '../util.dart';
 
-class InspectView extends StatelessWidget {
-  const InspectView({super.key, required this.omamoriModel});
+class DisplayView extends StatelessWidget {
+  const DisplayView({super.key, required this.charmModel});
 
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +31,7 @@ class InspectView extends StatelessWidget {
           ),
           Positioned(
             child: Center(
-              child: SizedBox(
-                width: 500,
-                height: 500,
-                child: OmamoriPlay(omamoriModel: omamoriModel),
-              ),
+              child: SizedBox(width: 500, height: 500, child: CharmPlay(charmModel: charmModel)),
             ),
           ),
           Positioned(top: 16, left: 16, child: MainBackButton()),
@@ -46,7 +42,7 @@ class InspectView extends StatelessWidget {
               onPressed: () {
                 pushView(
                   context,
-                  InspectDetailView(omamoriModel: omamoriModel),
+                  DisplayDetailView(charmModel: charmModel),
                   fullscreenDialog: true,
                 );
               },

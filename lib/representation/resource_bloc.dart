@@ -43,24 +43,10 @@ class ResourceBloc extends Cubit<ResourceState> {
 
   Future<void> loadData() async {
     if (!state.loaded) {
-      await loadPatterns();
       await loadBackgrounds();
       await loadItems();
 
       emit(state.copyWith(loaded: true));
-    }
-  }
-
-  Future<void> loadPatterns() async {
-    try {
-      final List<PatternModel> resultPatterns = await resourceRepository.getPatterns();
-
-      emit(
-        state.copyWith(patterns: Map.fromIterable(resultPatterns, key: (element) => element.id)),
-      );
-    } catch (e) {
-      log(e.toString());
-      rethrow;
     }
   }
 

@@ -2,14 +2,14 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/model/customisation_constant.dart';
-import '../global/colors.dart';
-import '../widgets/omamori_static.dart';
-import '../widgets/parse_preset_button.dart';
+import '../../data/model/customisation_constant.dart';
+import '../../global/colors.dart';
+import '../../widgets/charm_static.dart';
+import '../../widgets/parse_preset_button.dart';
 import 'customisation_bloc.dart';
 import 'customisation_component_selection_widget.dart';
-import 'inspect_view.dart';
-import 'util.dart';
+import '../display/display_view.dart';
+import '../util.dart';
 
 class CustomisationComponentWidget extends StatelessWidget {
   const CustomisationComponentWidget({super.key});
@@ -29,7 +29,7 @@ class CustomisationComponentWidget extends StatelessWidget {
                 onPressed: () {
                   pushView(
                     context,
-                    InspectView(omamoriModel: context.read<CustomisationBloc>().state.omamoriModel),
+                    DisplayView(charmModel: context.read<CustomisationBloc>().state.charmModel),
                   );
                 },
                 child: Text('Preview'),
@@ -95,8 +95,8 @@ class CustomisationComponentWidget extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Center(
-                            child: OmamoriStatic(
-                              omamoriModel: context.read<CustomisationBloc>().state.omamoriModel,
+                            child: CharmStatic(
+                              charmModel: context.read<CustomisationBloc>().state.charmModel,
                             ),
                           ),
                         ),

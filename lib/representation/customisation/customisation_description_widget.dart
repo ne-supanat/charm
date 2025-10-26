@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/app_text_form_field.dart';
+import '../../widgets/app_text_form_field.dart';
 import 'customisation_bloc.dart';
 
 class CustomisationDescriptionWidget extends StatelessWidget {

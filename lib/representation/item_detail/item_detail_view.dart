@@ -1,8 +1,8 @@
 import 'package:charm/global/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../data/model/item_model.dart';
-import '../widgets/base_scaffold.dart';
+import '../../data/model/item_model.dart';
+import '../../widgets/base_scaffold.dart';
 
 class ComponentDetailView extends StatelessWidget {
   const ComponentDetailView({super.key, required this.itemModel});

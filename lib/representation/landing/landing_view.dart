@@ -1,16 +1,12 @@
-import 'package:charm/global/colors.dart';
-import 'package:charm/global/sharedpref.dart';
-import 'package:charm/representation/catalog_view.dart';
-import 'package:charm/representation/new_main_view.dart';
-import 'package:charm/widgets/app_text_button.dart';
-import 'package:charm/widgets/charm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import 'resource_bloc.dart';
-import 'signin_view.dart';
-import 'util.dart';
+import '../../global/sharedpref.dart';
+import '../../widgets/charm.dart';
+import '../display_new/display_new_view.dart';
+import '../resource_bloc.dart';
+import '../util.dart';
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key});
@@ -33,12 +29,7 @@ class _LandingViewState extends State<LandingView> {
     return BlocConsumer<ResourceBloc, ResourceState>(
       listener: (context, state) {
         if (state.loaded) {
-          replaceView(context, NewMainView());
-          // if (GetIt.I<Sharedpref>().getAuthToken() != null) {
-          //   replaceView(context, CatalogView());
-          // } else {
-          //   replaceView(context, SigninView());
-          // }
+          replaceView(context, DisplayNewView());
         }
       },
       builder: (context, state) {

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 
-import '../data/model/omamori_model.dart';
+import '../data/model/charm_model.dart';
 
-class OmamoriPlay extends StatefulWidget {
-  const OmamoriPlay({super.key, required this.omamoriModel});
+class CharmPlay extends StatefulWidget {
+  const CharmPlay({super.key, required this.charmModel});
 
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   @override
-  State<OmamoriPlay> createState() => _OmamoriPlayState();
+  State<CharmPlay> createState() => _CharmPlayState();
 }
 
-class _OmamoriPlayState extends State<OmamoriPlay> with TickerProviderStateMixin {
+class _CharmPlayState extends State<CharmPlay> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Tilt(
@@ -21,7 +21,7 @@ class _OmamoriPlayState extends State<OmamoriPlay> with TickerProviderStateMixin
           Positioned(
             child: TiltParallax(
               size: Offset(10, 10),
-              child: Center(child: Text(widget.omamoriModel.title)),
+              child: Center(child: Text(widget.charmModel.title)),
             ),
           ),
           Positioned(

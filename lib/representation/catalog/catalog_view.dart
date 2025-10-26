@@ -1,16 +1,16 @@
 import 'package:charm/global/colors.dart';
-import 'package:charm/representation/signin_view.dart';
+import 'package:charm/representation/signin/signin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/model/omamori_model.dart';
-import '../widgets/app_text_button.dart';
-import '../widgets/base_scaffold.dart';
+import '../../data/model/charm_model.dart';
+import '../../widgets/app_text_button.dart';
+import '../../widgets/base_scaffold.dart';
 import 'catalog_bloc.dart';
-import 'customisation_view.dart';
-import 'inspect_view.dart';
-import 'resource_bloc.dart';
-import 'util.dart';
+import '../customisation/customisation_view.dart';
+import '../display/display_view.dart';
+import '../resource_bloc.dart';
+import '../util.dart';
 
 class CatalogView extends StatefulWidget {
   const CatalogView({super.key});
@@ -35,7 +35,7 @@ class _CatalogViewState extends State<CatalogView> {
       actions: [
         AppTextButton(
           onPressed: () async {
-            await context.read<CatalogBloc>().addNewOmamori();
+            await context.read<CatalogBloc>().addNewCharm();
           },
           text: "New",
         ),
@@ -80,7 +80,7 @@ class _CatalogViewState extends State<CatalogView> {
                     children: [
                       OutlinedButton(
                         onPressed: () {
-                          context.read<CatalogBloc>().deleteSelectedOmamori();
+                          context.read<CatalogBloc>().deleteSelectedCharm();
                         },
                         child: Text("Delete"),
                       ),
@@ -89,7 +89,7 @@ class _CatalogViewState extends State<CatalogView> {
                           final state = context.read<CatalogBloc>().state;
                           pushView(
                             context,
-                            CustomisationView(omamoriModel: state.catalog[state.selectedPreset]!),
+                            CustomisationView(charmModel: state.catalog[state.selectedPreset]!),
                           );
                         },
                         child: Text("Customisation"),
@@ -98,7 +98,7 @@ class _CatalogViewState extends State<CatalogView> {
                         onPressed: () {
                           pushView(
                             context,
-                            InspectView(omamoriModel: state.catalog[state.selectedPreset]!),
+                            DisplayView(charmModel: state.catalog[state.selectedPreset]!),
                           );
                         },
                         child: Text("View"),
@@ -115,28 +115,28 @@ class _CatalogViewState extends State<CatalogView> {
     );
   }
 
-  Widget buildItemTile(BuildContext context, OmamoriModel omamori) {
+  Widget buildItemTile(BuildContext context, CharmModel charm) {
     final bloc = context.read<ResourceBloc>();
 
     final items = [];
-    if (omamori.item1Id != null && bloc.getItemById(omamori.item1Id!) != null) {
-      items.add(bloc.getItemById(omamori.item1Id!)!.name);
+    if (charm.item1Id != null && bloc.getItemById(charm.item1Id!) != null) {
+      items.add(bloc.getItemById(charm.item1Id!)!.name);
     }
-    if (omamori.item2Id != null && bloc.getItemById(omamori.item2Id!) != null) {
-      items.add(bloc.getItemById(omamori.item2Id!)?.name);
+    if (charm.item2Id != null && bloc.getItemById(charm.item2Id!) != null) {
+      items.add(bloc.getItemById(charm.item2Id!)?.name);
     }
-    if (omamori.item3Id != null && bloc.getItemById(omamori.item3Id!) != null) {
-      items.add(bloc.getItemById(omamori.item3Id!)?.name);
+    if (charm.item3Id != null && bloc.getItemById(charm.item3Id!) != null) {
+      items.add(bloc.getItemById(charm.item3Id!)?.name);
     }
 
     return BlocBuilder<CatalogBloc, CatalogState>(
       builder: (context, state) {
-        final isSelected = state.selectedPreset == omamori.id;
+        final isSelected = state.selectedPreset == charm.id;
 
         return InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {
-            context.read<CatalogBloc>().select(omamori.id);
+            context.read<CatalogBloc>().select(charm.id);
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -161,7 +161,7 @@ class _CatalogViewState extends State<CatalogView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        omamori.title,
+                        charm.title,
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                         ),

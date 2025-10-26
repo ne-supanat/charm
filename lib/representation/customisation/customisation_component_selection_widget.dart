@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/model/background_model.dart';
-import '../data/model/customisation_constant.dart';
-import '../data/model/item_model.dart';
-import '../data/model/pattern_model.dart';
-import '../global/colors.dart';
-import '../widgets/tag_filter_button.dart';
-import 'component_detail_view.dart';
+import '../../data/model/background_model.dart';
+import '../../data/model/customisation_constant.dart';
+import '../../data/model/item_model.dart';
+import '../../data/model/pattern_model.dart';
+import '../../global/colors.dart';
+import '../../widgets/tag_filter_button.dart';
+import '../item_detail/item_detail_view.dart';
 import 'customisation_bloc.dart';
-import 'resource_bloc.dart';
-import 'util.dart';
+import '../resource_bloc.dart';
+import '../util.dart';
 
 class CustomisationComponentSelectionWidget extends StatelessWidget {
   const CustomisationComponentSelectionWidget({super.key});
@@ -161,7 +161,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
         onTap: () {
           context.read<CustomisationBloc>().selectBackground(e.id);
         },
-        isUsed: state.omamoriModel.backgroundId == e.id,
+        isUsed: state.charmModel.backgroundId == e.id,
         isSelected: state.selectedBackgroundId == e.id,
         child: Text(e.id.toString()),
       ),
@@ -184,7 +184,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
         onTap: () {
           context.read<CustomisationBloc>().selectPattern(e.id);
         },
-        isUsed: state.omamoriModel.patternId == e.id,
+        isUsed: state.charmModel.patternId == e.id,
         isSelected: state.selectedPatternId == e.id,
         child: Text(e.id.toString()),
       ),
@@ -210,7 +210,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
       onTap: (e) {
         context.read<CustomisationBloc>().selectItem1(e.id);
       },
-      isUsed: (e) => state.omamoriModel.item1Id == e.id,
+      isUsed: (e) => state.charmModel.item1Id == e.id,
       isSelected: (e) => state.selectedItem1Id == e.id,
       columnCount: columnCount,
     );
@@ -222,7 +222,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
       onTap: (e) {
         context.read<CustomisationBloc>().selectItem2(e.id);
       },
-      isUsed: (e) => state.omamoriModel.item2Id == e.id,
+      isUsed: (e) => state.charmModel.item2Id == e.id,
       isSelected: (e) => state.selectedItem2Id == e.id,
       columnCount: columnCount,
     );
@@ -234,7 +234,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
       onTap: (e) {
         context.read<CustomisationBloc>().selectItem3(e.id);
       },
-      isUsed: (e) => state.omamoriModel.item3Id == e.id,
+      isUsed: (e) => state.charmModel.item3Id == e.id,
       isSelected: (e) => state.selectedItem3Id == e.id,
       columnCount: columnCount,
     );

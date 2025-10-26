@@ -1,12 +1,12 @@
 import 'package:charm/global/colors.dart';
-import 'package:charm/representation/select_background_bottomsheet.dart';
-import 'package:charm/representation/select_item_bottomsheet.dart';
+import 'package:charm/representation/display_new/select_background_bottomsheet.dart';
+import 'package:charm/representation/display_new/select_item_bottomsheet.dart';
 import 'package:charm/widgets/charm.dart';
 import 'package:charm/widgets/orbiting_widget.dart';
 import 'package:flutter/material.dart';
 
-class NewMainView extends StatelessWidget {
-  const NewMainView({super.key});
+class DisplayNewView extends StatelessWidget {
+  const DisplayNewView({super.key});
 
   @override
   Widget build(BuildContext context) {

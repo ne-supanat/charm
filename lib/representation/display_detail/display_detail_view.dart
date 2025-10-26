@@ -1,26 +1,26 @@
 import 'package:charm/global/colors.dart';
-import 'package:charm/representation/component_detail_view.dart';
+import 'package:charm/representation/item_detail/item_detail_view.dart';
 import 'package:charm/representation/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/model/omamori_model.dart';
-import '../widgets/app_icon_button.dart';
-import '../widgets/app_text_button.dart';
-import '../widgets/base_scaffold.dart';
-import 'resource_bloc.dart';
+import '../../data/model/charm_model.dart';
+import '../../widgets/app_icon_button.dart';
+import '../../widgets/app_text_button.dart';
+import '../../widgets/base_scaffold.dart';
+import '../resource_bloc.dart';
 
-class InspectDetailView extends StatelessWidget {
-  const InspectDetailView({super.key, required this.omamoriModel});
+class DisplayDetailView extends StatelessWidget {
+  const DisplayDetailView({super.key, required this.charmModel});
 
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      title: omamoriModel.title,
+      title: charmModel.title,
       actions: [AppIconButton(onPressed: Navigator.of(context).pop, icon: Icon(Icons.close))],
       showBack: false,
       body: Padding(
@@ -28,9 +28,9 @@ class InspectDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (omamoriModel.description?.isNotEmpty ?? false)
-              Text(omamoriModel.description!, style: Theme.of(context).textTheme.bodyMedium),
-            if (omamoriModel.description?.isNotEmpty ?? false) SizedBox(height: 16),
+            if (charmModel.description?.isNotEmpty ?? false)
+              Text(charmModel.description!, style: Theme.of(context).textTheme.bodyMedium),
+            if (charmModel.description?.isNotEmpty ?? false) SizedBox(height: 16),
             Text('Material', style: Theme.of(context).textTheme.titleMedium),
             buildComponentsText(context),
             SizedBox(height: 16),
@@ -38,15 +38,10 @@ class InspectDetailView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  convertOmamoriToCode(omamoriModel),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+                Text(convertCharmToCode(charmModel), style: Theme.of(context).textTheme.bodyMedium),
                 AppTextButton(
                   onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: convertOmamoriToCode(omamoriModel)),
-                    );
+                    await Clipboard.setData(ClipboardData(text: convertCharmToCode(charmModel)));
                   },
                   text: 'Copy',
                 ),
@@ -63,14 +58,14 @@ class InspectDetailView extends StatelessWidget {
     // component1 • component2 • component3
 
     final ids = [];
-    if (omamoriModel.item1Id != null) {
-      ids.add(omamoriModel.item1Id);
+    if (charmModel.item1Id != null) {
+      ids.add(charmModel.item1Id);
     }
-    if (omamoriModel.item2Id != null) {
-      ids.add(omamoriModel.item2Id);
+    if (charmModel.item2Id != null) {
+      ids.add(charmModel.item2Id);
     }
-    if (omamoriModel.item3Id != null) {
-      ids.add(omamoriModel.item3Id);
+    if (charmModel.item3Id != null) {
+      ids.add(charmModel.item3Id);
     }
 
     final textSpans = <InlineSpan>[];

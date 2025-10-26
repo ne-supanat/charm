@@ -3,20 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/model/customisation_constant.dart';
-import '../data/model/omamori_model.dart';
-import '../global/colors.dart';
-import '../widgets/base_scaffold.dart';
-import '../widgets/main_back_button.dart';
-import 'catalog_bloc.dart';
+import '../../data/model/customisation_constant.dart';
+import '../../data/model/charm_model.dart';
+import '../../global/colors.dart';
+import '../../widgets/base_scaffold.dart';
+import '../../widgets/main_back_button.dart';
+import '../catalog/catalog_bloc.dart';
 import 'customisation_bloc.dart';
 import 'customisation_component_widget.dart';
 import 'customisation_description_widget.dart';
 
 class CustomisationView extends StatefulWidget {
-  const CustomisationView({super.key, required this.omamoriModel});
+  const CustomisationView({super.key, required this.charmModel});
 
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   @override
   State<CustomisationView> createState() => _CustomisationViewState();
@@ -29,15 +29,15 @@ class _CustomisationViewState extends State<CustomisationView> {
   @override
   void initState() {
     super.initState();
-    textEditingControllerTitle = TextEditingController(text: widget.omamoriModel.title);
-    textEditingControllerDesc = TextEditingController(text: widget.omamoriModel.description);
+    textEditingControllerTitle = TextEditingController(text: widget.charmModel.title);
+    textEditingControllerDesc = TextEditingController(text: widget.charmModel.description);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          CustomisationBloc(CustomisationState(omamoriModel: widget.omamoriModel))..init(),
+          CustomisationBloc(CustomisationState(charmModel: widget.charmModel))..init(),
       child: Builder(
         builder: (context) {
           return buildContent(context);

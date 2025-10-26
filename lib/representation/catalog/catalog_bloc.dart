@@ -5,15 +5,15 @@ import 'package:charm/global/sharedpref.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../data/model/omamori_model.dart';
+import '../../data/model/charm_model.dart';
 
 class CatalogState {
-  final Map<int, OmamoriModel> catalog;
+  final Map<int, CharmModel> catalog;
   final int selectedPreset;
 
   CatalogState({this.catalog = const {}, this.selectedPreset = -1});
 
-  copyWith({Map<int, OmamoriModel>? catalog, int? selectedPreset}) {
+  copyWith({Map<int, CharmModel>? catalog, int? selectedPreset}) {
     return CatalogState(
       catalog: catalog ?? this.catalog,
       selectedPreset: selectedPreset ?? this.selectedPreset,
@@ -28,10 +28,10 @@ class CatalogBloc extends Cubit<CatalogState> {
 
   Future<void> loadCatalog() async {
     try {
-      final List<OmamoriModel> result = await presetRepository.getPresets();
+      final List<CharmModel> result = await presetRepository.getPresets();
       emit(
         state.copyWith(
-          catalog: Map<int, OmamoriModel>.fromIterable(result, key: (element) => element.id),
+          catalog: Map<int, CharmModel>.fromIterable(result, key: (element) => element.id),
         ),
       );
     } catch (e) {
@@ -44,7 +44,7 @@ class CatalogBloc extends Cubit<CatalogState> {
     emit(state.copyWith(selectedPreset: presetId));
   }
 
-  Future<void> addNewOmamori() async {
+  Future<void> addNewCharm() async {
     try {
       await presetRepository.createNewPreset();
       await loadCatalog();
@@ -54,7 +54,7 @@ class CatalogBloc extends Cubit<CatalogState> {
     }
   }
 
-  Future<void> deleteSelectedOmamori() async {
+  Future<void> deleteSelectedCharm() async {
     try {
       await presetRepository.deletePreset(state.selectedPreset);
       await loadCatalog();

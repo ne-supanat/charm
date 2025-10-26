@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/model/omamori_model.dart';
+import '../data/model/charm_model.dart';
 
 pushView(BuildContext context, Widget view, {bool fullscreenDialog = false}) {
   Navigator.push(
@@ -13,14 +13,14 @@ replaceView(BuildContext context, Widget view) {
   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => view));
 }
 
-String convertOmamoriToCode(OmamoriModel omamoriModel) {
+String convertCharmToCode(CharmModel charm) {
   // TODO: convert code
   return "converted code";
 }
 
-OmamoriModel convertCodeToOmamori(String code) {
+CharmModel convertCodeToCharm(String code) {
   // TODO: convert code
-  return OmamoriModel(
+  return CharmModel(
     id: -1,
     title: "title",
     description: "description",

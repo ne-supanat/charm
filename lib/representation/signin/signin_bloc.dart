@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../data/model/user_model.dart';
-import '../data/repository/auth_repository.dart';
+import '../../data/model/user_model.dart';
+import '../../data/repository/auth_repository.dart';
 
 class SigninState {
   String email;

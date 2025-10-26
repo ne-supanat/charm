@@ -1,6 +1,6 @@
 import 'package:charm/data/model/item_model.dart';
 import 'package:charm/global/colors.dart';
-import 'package:charm/representation/component_detail_view.dart';
+import 'package:charm/representation/item_detail/item_detail_view.dart';
 import 'package:charm/representation/resource_bloc.dart';
 import 'package:charm/representation/util.dart';
 import 'package:charm/widgets/app_icon_button.dart';

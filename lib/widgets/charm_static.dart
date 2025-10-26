@@ -1,10 +1,10 @@
-import 'package:charm/data/model/omamori_model.dart';
+import 'package:charm/data/model/charm_model.dart';
 import 'package:flutter/material.dart';
 
-class OmamoriStatic extends StatelessWidget {
-  const OmamoriStatic({super.key, required this.omamoriModel});
+class CharmStatic extends StatelessWidget {
+  const CharmStatic({super.key, required this.charmModel});
 
-  final OmamoriModel omamoriModel;
+  final CharmModel charmModel;
 
   @override
   Widget build(BuildContext context) {
