@@ -10,13 +10,13 @@ class AppIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: colorPrimary,
+      color: colorSecondary,
       onPressed: onPressed,
       icon: icon,
       padding: EdgeInsets.all(4),
       constraints: BoxConstraints(),
       style: IconButton.styleFrom(
-        side: BorderSide(color: colorPrimary),
+        side: BorderSide(color: colorSecondary),
         backgroundColor: colorWhite,
       ),
     );

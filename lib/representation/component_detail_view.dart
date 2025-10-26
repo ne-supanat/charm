@@ -23,20 +23,29 @@ class ComponentDetailView extends StatelessWidget {
               height: 250,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: colorPrimary),
+                border: Border.all(color: colorSecondary),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset(
                 itemModel.imageUrl,
                 fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) =>
-                    Image.asset("assets/images/dark_noise.jpg", fit: BoxFit.contain),
+                errorBuilder: (context, error, stackTrace) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.broken_image_outlined, color: colorPrimary),
+                    Text(
+                      'Image Not Found',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorPrimary),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                border: Border.all(color: colorPrimary),
+                border: Border.all(color: colorSecondary),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(

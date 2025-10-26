@@ -10,8 +10,8 @@ import '../data/model/pattern_model.dart';
 
 class ResourceState {
   bool loaded;
-  Map<String, PatternModel> patterns;
-  Map<String, BackgroundModel> backgrounds;
+  Map<int, PatternModel> patterns;
+  Map<int, BackgroundModel> backgrounds;
   Map<int, ItemModel> items;
 
   ResourceState({
@@ -23,8 +23,8 @@ class ResourceState {
 
   copyWith({
     bool? loaded,
-    Map<String, PatternModel>? patterns,
-    Map<String, BackgroundModel>? backgrounds,
+    Map<int, PatternModel>? patterns,
+    Map<int, BackgroundModel>? backgrounds,
     Map<int, ItemModel>? items,
   }) {
     return ResourceState(
@@ -56,9 +56,7 @@ class ResourceBloc extends Cubit<ResourceState> {
       final List<PatternModel> resultPatterns = await resourceRepository.getPatterns();
 
       emit(
-        state.copyWith(
-          patterns: Map.fromIterable(resultPatterns, key: (element) => element.id.toString()),
-        ),
+        state.copyWith(patterns: Map.fromIterable(resultPatterns, key: (element) => element.id)),
       );
     } catch (e) {
       log(e.toString());
@@ -72,7 +70,7 @@ class ResourceBloc extends Cubit<ResourceState> {
 
       emit(
         state.copyWith(
-          backgrounds: Map.fromIterable(resultBackgrounds, key: (element) => element.id.toString()),
+          backgrounds: Map.fromIterable(resultBackgrounds, key: (element) => element.id),
         ),
       );
     } catch (e) {

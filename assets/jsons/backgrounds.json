@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "img_1",
+        "image_url": "image_url"
+    },
+    {
+        "id": 2,
+        "name": "img_2",
+        "image_url": "image_url"
+    },
+    {
+        "id": 3,
+        "name": "img_3",
+        "image_url": "image_url"
+    },
+    {
+        "id": 4,
+        "name": "img_4",
+        "image_url": "image_url"
+    },
+    {
+        "id": 5,
+        "name": "img_5",
+        "image_url": "image_url"
+    },
+    {
+        "id": 6,
+        "name": "img_6",
+        "image_url": "image_url"
+    }
+]

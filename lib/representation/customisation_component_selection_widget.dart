@@ -150,12 +150,12 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
     return buildBoxSelection<BackgroundModel>(
       // context.read<ResourceBloc>().state.backgrounds.toList(),
       [
-        BackgroundModel(id: 1, imageUrl: "imageUrl"),
-        BackgroundModel(id: 2, imageUrl: "imageUrl"),
-        BackgroundModel(id: 3, imageUrl: "imageUrl"),
-        BackgroundModel(id: 4, imageUrl: "imageUrl"),
-        BackgroundModel(id: 5, imageUrl: "imageUrl"),
-        BackgroundModel(id: 6, imageUrl: "imageUrl"),
+        BackgroundModel(id: 1, name: "img_1", imageUrl: "imageUrl"),
+        BackgroundModel(id: 2, name: "img_2", imageUrl: "imageUrl"),
+        BackgroundModel(id: 3, name: "img_3", imageUrl: "imageUrl"),
+        BackgroundModel(id: 4, name: "img_4", imageUrl: "imageUrl"),
+        BackgroundModel(id: 5, name: "img_5", imageUrl: "imageUrl"),
+        BackgroundModel(id: 6, name: "img_6", imageUrl: "imageUrl"),
       ],
       (e) => _buildBox(
         onTap: () {

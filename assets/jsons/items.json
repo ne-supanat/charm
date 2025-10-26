@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "name": "Four-leaf clover",
+        "image_url": "image_url",
+        "tags": [
+            "Nature",
+            "Luck"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 2,
+        "name": "Horseshoe",
+        "image_url": "image_url",
+        "tags": [
+            "Object",
+            "Luck"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 3,
+        "name": "Rabbit's foot",
+        "image_url": "image_url",
+        "tags": [
+            "Object",
+            "Luck"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 4,
+        "name": "Peony",
+        "image_url": "image_url",
+        "tags": [
+            "Nature",
+            "Love"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 5,
+        "name": "Pair of Cranes",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Love"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 6,
+        "name": "Bottle gourd",
+        "image_url": "image_url",
+        "tags": [
+            "Object",
+            "Travel"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 7,
+        "name": "Butterfly",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Travel"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 8,
+        "name": "A Guardian Angel",
+        "image_url": "image_url",
+        "tags": [
+            "Entity",
+            "Protection"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 9,
+        "name": "Dragon",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Work"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 10,
+        "name": "Phoenix",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Work"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 11,
+        "name": "Goldfish",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Money"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 12,
+        "name": "Turtle",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Longivity"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 13,
+        "name": "Crane",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Longivity"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 14,
+        "name": "Plum tree",
+        "image_url": "image_url",
+        "tags": [
+            "Nature",
+            "Longivity"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 15,
+        "name": "Bamboo",
+        "image_url": "image_url",
+        "tags": [
+            "Nature",
+            "Longivity"
+        ],
+        "description": "description"
+    },
+    {
+        "id": 16,
+        "name": "Owls",
+        "image_url": "image_url",
+        "tags": [
+            "Animal",
+            "Wisdom"
+        ],
+        "description": "description"
+    }
+]

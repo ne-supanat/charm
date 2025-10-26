@@ -1,5 +1,6 @@
 import 'package:charm/data/model/omamori_model.dart';
 import 'package:charm/representation/customisation_view.dart';
+import 'package:charm/representation/new_main_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
