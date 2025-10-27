@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import '../../data/model/item_model.dart';
 import '../../widgets/base_scaffold.dart';
 
-class ComponentDetailView extends StatelessWidget {
-  const ComponentDetailView({super.key, required this.itemModel});
+class ItemDetailView extends StatelessWidget {
+  const ItemDetailView({super.key, required this.itemModel});
 
   final ItemModel itemModel;
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      title: itemModel.name,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(

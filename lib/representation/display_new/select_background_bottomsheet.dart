@@ -1,6 +1,7 @@
 import 'package:charm/data/model/background_model.dart';
 import 'package:charm/global/colors.dart';
 import 'package:charm/representation/resource_bloc.dart';
+import 'package:charm/representation/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +29,7 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 115,
+      height: 124,
       width: double.maxFinite,
       padding: EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
@@ -51,8 +52,8 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
           ),
           SizedBox(height: 8),
           Container(
-            constraints: BoxConstraints(maxHeight: 46),
-            height: 46,
+            constraints: BoxConstraints(maxHeight: 52),
+            height: 52,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -69,8 +70,9 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
                     widget.onChanged(background.id);
                   },
                   child: Container(
-                    width: 46,
-                    height: 46,
+                    width: 52,
+                    height: 52,
+                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: colorPrimary,
@@ -79,9 +81,12 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
                         width: isSelected ? 2 : 1,
                       ),
                     ),
-                    child: Image.asset(
-                      background.imageUrl,
-                      errorBuilder: (context, error, stackTrace) => SizedBox(),
+                    child: ClipOval(
+                      child: Image.asset(
+                        'images/${useWebLayout(context) ? background.imageUrlWeb : background.imageUrlMobile}',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => SizedBox(),
+                      ),
                     ),
                   ),
                 );

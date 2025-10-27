@@ -80,7 +80,7 @@ class DisplayDetailView extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorSecondary),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                pushView(context, ComponentDetailView(itemModel: item));
+                pushView(context, ItemDetailView(itemModel: item));
               },
           ),
         );

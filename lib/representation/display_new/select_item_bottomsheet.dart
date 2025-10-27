@@ -139,7 +139,7 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
                           ),
                         ),
                         child: Image.asset(
-                          item.imageUrl,
+                          'images/${item.imageUrl}',
                           errorBuilder: (context, error, stackTrace) => SizedBox(),
                         ),
                       ),
@@ -165,7 +165,7 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
                       AppIconButton(
                         icon: Icon(Icons.info_outline),
                         onPressed: () {
-                          pushView(context, ComponentDetailView(itemModel: item));
+                          pushView(context, ItemDetailView(itemModel: item));
                         },
                       ),
                     ],

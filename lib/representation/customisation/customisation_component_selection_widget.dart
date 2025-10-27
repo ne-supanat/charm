@@ -109,7 +109,7 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
                     onPressed: () {
                       pushView(
                         context,
-                        ComponentDetailView(
+                        ItemDetailView(
                           itemModel: context.read<ResourceBloc>().state.items[selectedItemId]!,
                         ),
                       );
@@ -150,12 +150,12 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
     return buildBoxSelection<BackgroundModel>(
       // context.read<ResourceBloc>().state.backgrounds.toList(),
       [
-        BackgroundModel(id: 1, name: "img_1", imageUrl: "imageUrl"),
-        BackgroundModel(id: 2, name: "img_2", imageUrl: "imageUrl"),
-        BackgroundModel(id: 3, name: "img_3", imageUrl: "imageUrl"),
-        BackgroundModel(id: 4, name: "img_4", imageUrl: "imageUrl"),
-        BackgroundModel(id: 5, name: "img_5", imageUrl: "imageUrl"),
-        BackgroundModel(id: 6, name: "img_6", imageUrl: "imageUrl"),
+        BackgroundModel(id: 1, name: "img_1", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
+        BackgroundModel(id: 2, name: "img_2", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
+        BackgroundModel(id: 3, name: "img_3", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
+        BackgroundModel(id: 4, name: "img_4", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
+        BackgroundModel(id: 5, name: "img_5", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
+        BackgroundModel(id: 6, name: "img_6", imageUrlWeb: "imageUrl", imageUrlMobile: "imageUrl"),
       ],
       (e) => _buildBox(
         onTap: () {

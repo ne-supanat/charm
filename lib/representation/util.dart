@@ -31,3 +31,7 @@ CharmModel convertCodeToCharm(String code) {
     item3Id: 5,
   );
 }
+
+bool useWebLayout(BuildContext context) {
+  return MediaQuery.of(context).size.width > 900 ? true : false;
+}

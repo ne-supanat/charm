@@ -1,5 +1,6 @@
 import 'package:charm/data/model/item_model.dart';
 import 'package:charm/global/colors.dart';
+import 'package:charm/resources/resources.dart';
 import 'package:charm/widgets/floating_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -51,12 +52,12 @@ class Charm extends StatelessWidget {
           Positioned(
             top: 0,
             left: 0,
-            child: FloatingWidget(distance: 5, child: Image.asset("images/star_top.png")),
+            child: FloatingWidget(distance: 5, child: Image.asset(Images.starTop, width: 40)),
           ),
           Positioned(
             bottom: 0,
             right: 0,
-            child: FloatingWidget(distance: -5, child: Image.asset("images/star_bottom.png")),
+            child: FloatingWidget(distance: -5, child: Image.asset(Images.starBottom, width: 40)),
           ),
         ],
       ),

@@ -7,8 +7,7 @@
     {
       "name": "charm",
       "request": "launch",
-      "type": "dart",
-      "args": ["--web-browser-flag=--disable-web-security"]
+      "type": "dart"
     },
     {
       "name": "charm (profile mode)",

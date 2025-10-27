@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:charm/resources/resources.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
@@ -12,7 +13,7 @@ class ResourceRepository {
 
   Future<List<BackgroundModel>> getBackgrounds() async {
     // // Data from assets
-    String data = await rootBundle.loadString('assets/jsons/backgrounds.json');
+    String data = await rootBundle.loadString(Jsons.backgrounds);
     final json = jsonDecode(data);
     return (json as List).map((e) => BackgroundModel.from(e)).toList();
 
@@ -27,7 +28,7 @@ class ResourceRepository {
 
   Future<List<ItemModel>> getItems() async {
     // // Data from assets
-    String data = await rootBundle.loadString('assets/jsons/items.json');
+    String data = await rootBundle.loadString(Jsons.items);
     final json = jsonDecode(data);
     return (json as List).map((e) => ItemModel.from(e)).toList();
 
