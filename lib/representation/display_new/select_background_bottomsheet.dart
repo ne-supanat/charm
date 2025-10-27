@@ -8,7 +8,7 @@ class SelectBackgroundBottomsheet extends StatefulWidget {
   const SelectBackgroundBottomsheet({super.key, this.selectedId, required this.onChanged});
 
   final int? selectedId;
-  final Function(int index) onChanged;
+  final Function(int id) onChanged;
 
   @override
   State<SelectBackgroundBottomsheet> createState() => _SelectBackgroundBottomsheetState();
@@ -66,7 +66,7 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
                       selectedId = background.id;
                     });
 
-                    widget.onChanged(index);
+                    widget.onChanged(background.id);
                   },
                   child: Container(
                     width: 46,

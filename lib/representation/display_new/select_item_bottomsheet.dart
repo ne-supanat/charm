@@ -1,32 +1,69 @@
-import 'package:charm/data/model/item_model.dart';
-import 'package:charm/global/colors.dart';
-import 'package:charm/representation/item_detail/item_detail_view.dart';
-import 'package:charm/representation/resource_bloc.dart';
-import 'package:charm/representation/util.dart';
-import 'package:charm/widgets/app_icon_button.dart';
-import 'package:charm/widgets/tag_filter_button.dart';
+import 'package:charm/widgets/tag_filter_button_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/model/item_model.dart';
+import '../../data/model/tags_constant.dart';
+import '../../global/colors.dart';
+import '../../widgets/app_icon_button.dart';
+import '../../widgets/tag_filter_button_power.dart';
+import '../item_detail/item_detail_view.dart';
+import '../resource_bloc.dart';
+import '../util.dart';
+
 class SelectItemBottomsheet extends StatefulWidget {
-  const SelectItemBottomsheet({super.key, this.selectedId, required this.onChanged});
+  const SelectItemBottomsheet({
+    super.key,
+    this.selectedId,
+    this.selectedTagCategory = TagCategory.all,
+    this.selectedTagPower = TagPower.all,
+    required this.onChanged,
+    required this.onUpdateFilterCategory,
+    required this.onUpdateFilterPower,
+  });
 
   final int? selectedId;
-  final Function(int index) onChanged;
+  final TagCategory selectedTagCategory;
+  final TagPower selectedTagPower;
+  final Function(int id) onChanged;
+  final Function(TagCategory) onUpdateFilterCategory;
+  final Function(TagPower) onUpdateFilterPower;
 
   @override
   State<SelectItemBottomsheet> createState() => _SelectItemBottomsheetState();
 }
 
 class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
-  late Map<int, ItemModel> itemMap;
-  late int selectedId = 0;
+  late List<ItemModel> items;
+  late List<ItemModel> displayedItems;
+  late int selectedId;
+
+  late TagCategory selectedTagCategory;
+  late TagPower selectedTagPower;
 
   @override
   void initState() {
     super.initState();
-    itemMap = context.read<ResourceBloc>().state.items;
-    selectedId = widget.selectedId ?? itemMap.keys.first;
+    items = context.read<ResourceBloc>().state.items.values.toList();
+    selectedId = widget.selectedId ?? items.first.id;
+
+    selectedTagCategory = widget.selectedTagCategory;
+    selectedTagPower = widget.selectedTagPower;
+    updateDisplayItems();
+  }
+
+  void updateDisplayItems() {
+    displayedItems = List<ItemModel>.from(items)
+        .where(
+          (element) =>
+              (selectedTagCategory == TagCategory.all
+                  ? true
+                  : element.tags.contains(selectedTagCategory.displayName)) &&
+              (selectedTagPower == TagPower.all
+                  ? true
+                  : element.tags.contains(selectedTagPower.displayName)),
+        )
+        .toList();
   }
 
   @override
@@ -45,8 +82,30 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
+              spacing: 8,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [TagFilterButton(onChanged: (value) {})],
+              children: [
+                TagFilterCategoryButton(
+                  initValue: widget.selectedTagCategory,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedTagCategory = value;
+                      updateDisplayItems();
+                    });
+                    widget.onUpdateFilterCategory(value);
+                  },
+                ),
+                TagFilterPowerButton(
+                  initValue: widget.selectedTagPower,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedTagPower = value;
+                      updateDisplayItems();
+                    });
+                    widget.onUpdateFilterPower(value);
+                  },
+                ),
+              ],
             ),
           ),
           Divider(height: 0),
@@ -54,7 +113,7 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               itemBuilder: (context, index) {
-                final item = itemMap.values.toList()[index];
+                final item = displayedItems[index];
                 final isSelected = selectedId == item.id;
 
                 return InkWell(
@@ -63,7 +122,7 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
                       selectedId = item.id;
                     });
 
-                    widget.onChanged(index);
+                    widget.onChanged(item.id);
                   },
                   child: Row(
                     spacing: 16,
@@ -116,7 +175,7 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
               separatorBuilder: (context, index) {
                 return SizedBox(height: 10);
               },
-              itemCount: itemMap.length,
+              itemCount: displayedItems.length,
             ),
           ),
         ],

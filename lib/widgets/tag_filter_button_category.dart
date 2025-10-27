@@ -3,24 +3,28 @@ import 'package:charm/widgets/app_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 
-class TagFilterButton extends StatefulWidget {
-  const TagFilterButton({super.key, this.initTag = Tag.all, required this.onChanged});
+class TagFilterCategoryButton extends StatefulWidget {
+  const TagFilterCategoryButton({
+    super.key,
+    this.initValue = TagCategory.all,
+    required this.onChanged,
+  });
 
-  final Tag initTag;
-  final Function(Tag selectedTag) onChanged;
+  final TagCategory initValue;
+  final Function(TagCategory selectedTag) onChanged;
 
   @override
-  State<TagFilterButton> createState() => _TagFilterButtonState();
+  State<TagFilterCategoryButton> createState() => _TagFilterCategoryButtonState();
 }
 
-class _TagFilterButtonState extends State<TagFilterButton> {
+class _TagFilterCategoryButtonState extends State<TagFilterCategoryButton> {
   final popupKey = GlobalKey<CustomPopupState>();
-  late Tag selectedValue;
+  late TagCategory selectedValue;
 
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.initTag;
+    selectedValue = widget.initValue;
   }
 
   @override
@@ -29,7 +33,7 @@ class _TagFilterButtonState extends State<TagFilterButton> {
       key: popupKey,
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: Tag.values.map((element) => _buildOptionItem(element)).toList(),
+        children: TagCategory.values.map((element) => _buildOptionItem(element)).toList(),
       ),
       barrierColor: Colors.transparent,
       position: PopupPosition.bottom,
@@ -39,19 +43,13 @@ class _TagFilterButtonState extends State<TagFilterButton> {
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 4),
-          child: Row(
-            children: [
-              Text('Display: ${selectedValue.displayName}'),
-              SizedBox(width: 4),
-              Icon(Icons.filter_alt_rounded),
-            ],
-          ),
+          child: Row(children: [Text('Category: ${selectedValue.displayName}')]),
         ),
       ),
     );
   }
 
-  Widget _buildOptionItem(Tag value) {
+  Widget _buildOptionItem(TagCategory value) {
     return InkWell(
       onTap: () {
         setState(() {

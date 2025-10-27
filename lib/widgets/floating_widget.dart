@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class FloatingWidget extends StatefulWidget {
@@ -21,12 +23,17 @@ class _FloatingWidgetState extends State<FloatingWidget> with TickerProviderStat
     _controller = AnimationController(
       duration: widget.duration ?? Duration(seconds: 5),
       vsync: this,
-    )..repeat(reverse: true);
+    );
 
     _animation = Tween<double>(
       begin: -(widget.distance ?? 10 / 2),
       end: (widget.distance ?? 10 / 2),
     ).chain(CurveTween(curve: Curves.easeInOut)).animate(_controller);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Future.delayed(Duration(milliseconds: (Random().nextDouble() * 1000).toInt()));
+      _controller.repeat(reverse: true);
+    });
   }
 
   @override

@@ -76,6 +76,10 @@ class ResourceBloc extends Cubit<ResourceState> {
     }
   }
 
+  BackgroundModel? getBackgroundById(int id) {
+    return state.backgrounds[id];
+  }
+
   ItemModel? getItemById(int id) {
     return state.items[id];
   }

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../global/sharedpref.dart';
-import '../../widgets/charm.dart';
 import '../display_new/display_new_view.dart';
 import '../resource_bloc.dart';
 import '../util.dart';
@@ -34,7 +33,7 @@ class _LandingViewState extends State<LandingView> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: Center(child: Column(children: [Text('Loading Resources'), Charm()])),
+          body: Center(child: Column(children: [Text('Loading Resources')])),
         );
       },
     );

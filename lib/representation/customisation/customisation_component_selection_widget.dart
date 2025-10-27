@@ -6,7 +6,7 @@ import '../../data/model/customisation_constant.dart';
 import '../../data/model/item_model.dart';
 import '../../data/model/pattern_model.dart';
 import '../../global/colors.dart';
-import '../../widgets/tag_filter_button.dart';
+import '../../widgets/tag_filter_button_power.dart';
 import '../item_detail/item_detail_view.dart';
 import 'customisation_bloc.dart';
 import '../resource_bloc.dart';
@@ -42,8 +42,8 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20),
           ),
           if (isSelectingItem(state))
-            TagFilterButton(
-              initTag: state.selectedTag,
+            TagFilterPowerButton(
+              // initValue: state.selectedTag,
               onChanged: (tag) {
                 context.read<CustomisationBloc>().updateTag(tag);
               },

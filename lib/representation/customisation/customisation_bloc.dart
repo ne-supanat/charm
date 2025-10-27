@@ -13,7 +13,7 @@ class CustomisationState {
 
   final CustomisationConstant focusedEditing;
   final ComponentConstant focusedCustomisationComponent;
-  final Tag selectedTag;
+  final TagCategory selectedTag;
   int? selectedBackgroundId;
   int? selectedPatternId;
   int? selectedItem1Id;
@@ -24,7 +24,7 @@ class CustomisationState {
     required this.charmModel,
     this.focusedEditing = CustomisationConstant.description,
     this.focusedCustomisationComponent = ComponentConstant.background,
-    this.selectedTag = Tag.all,
+    this.selectedTag = TagCategory.all,
     this.selectedBackgroundId = -1,
     this.selectedPatternId = -1,
     this.selectedItem1Id = -1,
@@ -36,7 +36,7 @@ class CustomisationState {
     CharmModel? charmModel,
     CustomisationConstant? focusedEditing,
     ComponentConstant? focusedCustomisationComponent,
-    Tag? selectedTag,
+    TagCategory? selectedTag,
     int? selectedBackgroundId,
     int? selectedPatternId,
     int? selectedItem1Id,

@@ -1,9 +1,12 @@
+import 'package:charm/data/model/item_model.dart';
 import 'package:charm/global/colors.dart';
 import 'package:charm/widgets/floating_widget.dart';
 import 'package:flutter/material.dart';
 
 class Charm extends StatelessWidget {
-  const Charm({super.key});
+  const Charm({super.key, required this.item});
+
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,12 @@ class Charm extends StatelessWidget {
                   ],
                 ),
                 child: ClipOval(
-                  child: Image.asset("images/object_sakura.png", fit: BoxFit.contain),
+                  child: Image.asset(
+                    item.imageUrl,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) =>
+                        Icon(Icons.broken_image_outlined, color: colorPrimary),
+                  ),
                 ),
               ),
             ),

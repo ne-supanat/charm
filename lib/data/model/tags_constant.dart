@@ -1,22 +1,45 @@
-enum Tag { all, luck, success, love, travel, work, money }
+enum TagCategory { all, animal, nature, object, entity }
 
-extension TagExtension on Tag {
+enum TagPower { all, luck, love, travel, protection, work, money, longivity, wisdom }
+
+extension TagCategoryExtension on TagCategory {
   String get displayName {
     switch (this) {
-      case Tag.all:
+      case TagCategory.all:
         return 'All';
-      case Tag.luck:
-        return 'Luck';
-      case Tag.success:
-        return 'Success';
-      case Tag.love:
-        return 'Love';
-      case Tag.travel:
-        return 'Travel';
-      case Tag.work:
-        return 'Work';
-      case Tag.money:
-        return 'Money';
+      case TagCategory.animal:
+        return "Animal";
+      case TagCategory.nature:
+        return "Nature";
+      case TagCategory.object:
+        return "Object";
+      case TagCategory.entity:
+        return "Entity";
+    }
+  }
+}
+
+extension TagPowerExtension on TagPower {
+  String get displayName {
+    switch (this) {
+      case TagPower.all:
+        return 'All';
+      case TagPower.luck:
+        return "Luck";
+      case TagPower.love:
+        return "Love";
+      case TagPower.travel:
+        return "Travel";
+      case TagPower.protection:
+        return "Protection";
+      case TagPower.work:
+        return "Work";
+      case TagPower.money:
+        return "Money";
+      case TagPower.longivity:
+        return "Longivity";
+      case TagPower.wisdom:
+        return "Wisdom";
     }
   }
 }
