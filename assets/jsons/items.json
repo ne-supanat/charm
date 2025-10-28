@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "name": "Four-leaf clover",
-        "image_url": "image_url",
+        "name": "Four-leaf Clover",
+        "image_url": "item_clover.png",
         "tags": [
             "Nature",
             "Luck"
@@ -12,17 +12,7 @@
     {
         "id": 2,
         "name": "Horseshoe",
-        "image_url": "image_url",
-        "tags": [
-            "Object",
-            "Luck"
-        ],
-        "description": "description"
-    },
-    {
-        "id": 3,
-        "name": "Rabbit's foot",
-        "image_url": "image_url",
+        "image_url": "item_horseshoe.png",
         "tags": [
             "Object",
             "Luck"
@@ -32,7 +22,7 @@
     {
         "id": 4,
         "name": "Peony",
-        "image_url": "image_url",
+        "image_url": "item_peony.png",
         "tags": [
             "Nature",
             "Love"
@@ -42,7 +32,7 @@
     {
         "id": 5,
         "name": "Pair of Cranes",
-        "image_url": "image_url",
+        "image_url": "item_pair_of_cranes.png",
         "tags": [
             "Animal",
             "Love"
@@ -50,19 +40,9 @@
         "description": "description"
     },
     {
-        "id": 6,
-        "name": "Bottle gourd",
-        "image_url": "image_url",
-        "tags": [
-            "Object",
-            "Travel"
-        ],
-        "description": "description"
-    },
-    {
         "id": 7,
         "name": "Butterfly",
-        "image_url": "image_url",
+        "image_url": "item_butterfly.png",
         "tags": [
             "Animal",
             "Travel"
@@ -71,7 +51,7 @@
     },
     {
         "id": 8,
-        "name": "A Guardian Angel",
+        "name": "Guardian Angel",
         "image_url": "image_url",
         "tags": [
             "Entity",
@@ -131,7 +111,7 @@
     },
     {
         "id": 14,
-        "name": "Plum tree",
+        "name": "Plum Tree",
         "image_url": "image_url",
         "tags": [
             "Nature",
@@ -151,7 +131,7 @@
     },
     {
         "id": 16,
-        "name": "Owls",
+        "name": "Owl",
         "image_url": "image_url",
         "tags": [
             "Animal",

@@ -138,9 +138,11 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
                             width: isSelected ? 2 : 1,
                           ),
                         ),
-                        child: Image.asset(
-                          'images/${item.imageUrl}',
-                          errorBuilder: (context, error, stackTrace) => SizedBox(),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'images/${item.imageUrl}',
+                            errorBuilder: (context, error, stackTrace) => SizedBox(),
+                          ),
                         ),
                       ),
                       Expanded(

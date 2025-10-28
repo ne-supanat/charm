@@ -26,7 +26,7 @@ class ItemDetailView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset(
-                itemModel.imageUrl,
+                'images/${itemModel.imageUrl}',
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) => Column(
                   mainAxisSize: MainAxisSize.min,

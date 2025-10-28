@@ -7,7 +7,11 @@
     {
       "name": "charm",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "flutterMode": "debug",
+      "dart": {
+        "exceptionBreakMode": "none"
+      }
     },
     {
       "name": "charm (profile mode)",
