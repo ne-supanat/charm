@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Starry Night",
+        "image_url_web": "bg_night_web.jpg",
+        "image_url_mobile": "bg_night_mobile.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Bright Beach",
+        "image_url_web": "bg_beach_web.jpg",
+        "image_url_mobile": "bg_beach_mobile.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Sunset City",
+        "image_url_web": "bg_city_web.jpg",
+        "image_url_mobile": "bg_city_mobile.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Serene Forest",
+        "image_url_web": "bg_forest_web.jpg",
+        "image_url_mobile": "bg_forest_mobile.jpg"
+    }
+]
