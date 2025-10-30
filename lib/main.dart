@@ -5,12 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'data/client.dart';
-import 'data/repository/auth_repository.dart';
-import 'data/repository/preset_repository.dart';
 import 'data/repository/resource_repository.dart';
 import 'global/sharedpref.dart';
 import 'global/theme.dart';
-import 'representation/catalog/catalog_bloc.dart';
 import 'representation/landing/landing_view.dart';
 import 'representation/resource_bloc.dart';
 
@@ -18,10 +15,7 @@ void main() async {
   await setup();
   runApp(
     MultiBlocProvider(
-      providers: [
-        BlocProvider<ResourceBloc>(create: (BuildContext context) => ResourceBloc()),
-        BlocProvider<CatalogBloc>(create: (BuildContext context) => CatalogBloc()),
-      ],
+      providers: [BlocProvider<ResourceBloc>(create: (BuildContext context) => ResourceBloc())],
       child: const MyApp(),
     ),
   );
@@ -40,9 +34,7 @@ Future<void> setup() async {
   await player.setReleaseMode(ReleaseMode.loop);
   GetIt.I.registerSingleton<AudioPlayer>(player);
 
-  GetIt.I.registerSingleton<AuthRepository>(AuthRepository());
   GetIt.I.registerSingleton<ResourceRepository>(ResourceRepository());
-  GetIt.I.registerSingleton<PresetRepository>(PresetRepository());
 }
 
 class MyApp extends StatelessWidget {
