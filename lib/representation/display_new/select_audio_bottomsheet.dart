@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../data/model/pattern_model.dart';
+import '../../data/model/music_model.dart';
 import '../../global/colors.dart';
 import '../../resources/resources.dart';
 import '../../widgets/app_icon_button.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/background_model.dart';
 import '../../data/model/customisation_constant.dart';
 import '../../data/model/item_model.dart';
-import '../../data/model/pattern_model.dart';
+import '../../data/model/music_model.dart';
 import '../../global/colors.dart';
 import '../../widgets/tag_filter_button_power.dart';
 import '../item_detail/item_detail_view.dart';

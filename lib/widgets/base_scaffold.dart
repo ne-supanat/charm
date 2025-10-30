@@ -24,7 +24,11 @@ class BaseScaffold extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Column(
           children: [
-            MainAppBar(title: title, leading: leading, actions: actions, showBack: showBack),
+            if (title != null ||
+                leading != null ||
+                actions != null ||
+                (showBack && Navigator.canPop(context)))
+              MainAppBar(title: title, leading: leading, actions: actions, showBack: showBack),
             Expanded(child: body),
           ],
         ),

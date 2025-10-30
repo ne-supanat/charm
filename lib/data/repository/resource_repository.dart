@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:charm/data/model/pattern_model.dart';
+import 'package:charm/data/model/music_model.dart';
 import 'package:charm/resources/resources.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';

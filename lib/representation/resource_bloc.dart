@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 
 import '../data/model/background_model.dart';
 import '../data/model/item_model.dart';
-import '../data/model/pattern_model.dart';
+import '../data/model/music_model.dart';
 
 class ResourceState {
   bool loaded;
