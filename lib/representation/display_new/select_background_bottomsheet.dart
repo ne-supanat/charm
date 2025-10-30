@@ -83,7 +83,7 @@ class _SelectBackgroundBottomsheetState extends State<SelectBackgroundBottomshee
                     ),
                     child: ClipOval(
                       child: Image.asset(
-                        'images/${useWebLayout(context) ? background.imageUrlWeb : background.imageUrlMobile}',
+                        'assets/images/${useWebLayout(context) ? background.imageUrlWeb : background.imageUrlMobile}',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => SizedBox(),
                       ),

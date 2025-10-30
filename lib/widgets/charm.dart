@@ -40,7 +40,7 @@ class Charm extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    'images/${item.imageUrl}',
+                    'assets/images/${item.imageUrl}',
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) =>
                         Icon(Icons.broken_image_outlined, color: colorPrimary),
