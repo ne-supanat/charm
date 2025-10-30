@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 
 import '../../global/colors.dart';
 import '../../resources/resources.dart';
-import '../../widgets/base_scaffold.dart';
 import '../../widgets/floating_widget.dart';
 import '../display_new/display_new_view.dart';
 import '../resource_bloc.dart';
@@ -32,7 +31,8 @@ class _LandingViewState extends State<LandingView> {
   Widget build(BuildContext context) {
     return BlocBuilder<ResourceBloc, ResourceState>(
       builder: (context, state) {
-        return BaseScaffold(
+        return Scaffold(
+          backgroundColor: colorBlack,
           body: Stack(
             children: [
               SizedBox(
