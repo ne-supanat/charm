@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:charm/data/model/pattern_model.dart';
 import 'package:charm/resources/resources.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,21 @@ import '../model/item_model.dart';
 
 class ResourceRepository {
   final Client client = GetIt.I<Client>();
+
+  Future<List<MusicsModel>> getMusics() async {
+    // // Data from assets
+    String data = await rootBundle.loadString(Jsons.musics);
+    final json = jsonDecode(data);
+    return (json as List).map((e) => MusicsModel.from(e)).toList();
+
+    // // Data from network
+    // Response response = await client.dio.get("/resource/items");
+    // if (response.statusCode == 200) {
+    //   return (response.data['data'] as List).map((e) => ItemModel.from(e)).toList();
+    // } else {
+    //   throw HttpException(response.data['error']);
+    // }
+  }
 
   Future<List<BackgroundModel>> getBackgrounds() async {
     // // Data from assets

@@ -10,26 +10,26 @@ import '../data/model/pattern_model.dart';
 
 class ResourceState {
   bool loaded;
-  Map<int, PatternModel> patterns;
+  Map<int, MusicsModel> musics;
   Map<int, BackgroundModel> backgrounds;
   Map<int, ItemModel> items;
 
   ResourceState({
     this.loaded = false,
-    this.patterns = const {},
+    this.musics = const {},
     this.backgrounds = const {},
     this.items = const {},
   });
 
   copyWith({
     bool? loaded,
-    Map<int, PatternModel>? patterns,
+    Map<int, MusicsModel>? musics,
     Map<int, BackgroundModel>? backgrounds,
     Map<int, ItemModel>? items,
   }) {
     return ResourceState(
       loaded: loaded ?? this.loaded,
-      patterns: patterns ?? this.patterns,
+      musics: musics ?? this.musics,
       backgrounds: backgrounds ?? this.backgrounds,
       items: items ?? this.items,
     );
@@ -43,10 +43,22 @@ class ResourceBloc extends Cubit<ResourceState> {
 
   Future<void> loadData() async {
     if (!state.loaded) {
+      await loadMusics();
       await loadBackgrounds();
       await loadItems();
 
       emit(state.copyWith(loaded: true));
+    }
+  }
+
+  Future<void> loadMusics() async {
+    try {
+      final List<MusicsModel> resultMusics = await resourceRepository.getMusics();
+
+      emit(state.copyWith(musics: Map.fromIterable(resultMusics, key: (element) => element.id)));
+    } catch (e) {
+      log(e.toString());
+      rethrow;
     }
   }
 
@@ -74,6 +86,10 @@ class ResourceBloc extends Cubit<ResourceState> {
       log(e.toString());
       rethrow;
     }
+  }
+
+  MusicsModel? getMusicById(int id) {
+    return state.musics[id];
   }
 
   BackgroundModel? getBackgroundById(int id) {

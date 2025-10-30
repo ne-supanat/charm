@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Underwater Exploration",
+        "audio_url": "Underwater Exploration - Godmode.mp3"
+    },
+    {
+        "id": 2,
+        "name": "The Palace Gardens",
+        "audio_url": "The Palace Gardens - Asher Fulero.mp3"
+    },
+    {
+        "id": 3,
+        "name": "Moonlight Magic",
+        "audio_url": "Moonlight Magic - Asher Fulero.mp3"
+    },
+    {
+        "id": 4,
+        "name": "make the visible invisible",
+        "audio_url": "make the visible invisible - Alge.mp3"
+    },
+    {
+        "id": 5,
+        "name": "On The Flip",
+        "audio_url": "On The Flip - The Grey Room _ Density & Time.mp3"
+    }
+]

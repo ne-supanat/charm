@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,10 +28,17 @@ void main() async {
 }
 
 Future<void> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final sharepref = Sharedpref();
   await sharepref.setup();
   GetIt.I.registerSingleton<Sharedpref>(sharepref);
   GetIt.I.registerSingleton<Client>(Client(dio: Dio())..configureDio());
+
+  final player = AudioPlayer();
+  player.setVolume(0.5);
+  await player.setReleaseMode(ReleaseMode.loop);
+  GetIt.I.registerSingleton<AudioPlayer>(player);
 
   GetIt.I.registerSingleton<AuthRepository>(AuthRepository());
   GetIt.I.registerSingleton<ResourceRepository>(ResourceRepository());

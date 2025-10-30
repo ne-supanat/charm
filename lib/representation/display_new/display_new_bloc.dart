@@ -7,6 +7,7 @@ import '../../data/model/tags_constant.dart';
 class DisplayNewState {
   final int selectedItemId;
   final int selectedBackgroundId;
+  final int selectedMusicId;
 
   final TagCategory selectedTagCategory;
   final TagPower selectedTagPower;
@@ -15,6 +16,7 @@ class DisplayNewState {
   DisplayNewState({
     required this.selectedItemId,
     required this.selectedBackgroundId,
+    required this.selectedMusicId,
     required this.selectedTagCategory,
     required this.selectedTagPower,
     required this.displayedUI,
@@ -24,6 +26,7 @@ class DisplayNewState {
     return DisplayNewState(
       selectedItemId: context.read<ResourceBloc>().state.items.values.first.id,
       selectedBackgroundId: context.read<ResourceBloc>().state.backgrounds.values.first.id,
+      selectedMusicId: context.read<ResourceBloc>().state.musics.values.first.id,
       selectedTagCategory: TagCategory.all,
       selectedTagPower: TagPower.all,
       displayedUI: true,
@@ -33,6 +36,7 @@ class DisplayNewState {
   copyWith({
     int? selectedItemId,
     int? selectedBackgroundId,
+    int? selectedMusicId,
     TagCategory? selectedTagCategory,
     TagPower? selectedTagPower,
     bool? displayedUI,
@@ -40,6 +44,7 @@ class DisplayNewState {
     return DisplayNewState(
       selectedItemId: selectedItemId ?? this.selectedItemId,
       selectedBackgroundId: selectedBackgroundId ?? this.selectedBackgroundId,
+      selectedMusicId: selectedMusicId ?? this.selectedMusicId,
       selectedTagCategory: selectedTagCategory ?? this.selectedTagCategory,
       selectedTagPower: selectedTagPower ?? this.selectedTagPower,
       displayedUI: displayedUI ?? this.displayedUI,
@@ -52,6 +57,10 @@ class DisplayNewBloc extends Cubit<DisplayNewState> {
 
   updateSelectedItem(int itemId) {
     emit(state.copyWith(selectedItemId: itemId));
+  }
+
+  updateSelectedMusic(int musicId) {
+    emit(state.copyWith(selectedMusicId: musicId));
   }
 
   updateSelectedBackground(int backgroundId) {

@@ -14,7 +14,7 @@ class MainBackButton extends StatelessWidget {
           () {
             Navigator.of(context).pop();
           },
-      icon: Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back_rounded),
     );
   }
 }

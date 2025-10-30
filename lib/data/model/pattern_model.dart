@@ -1,10 +1,12 @@
-class PatternModel {
+class MusicsModel {
   final int id;
-  final String imageUrl;
+  final String name;
+  final String audioUrl;
 
-  PatternModel({required this.id, required this.imageUrl});
+  MusicsModel({required this.id, required this.name, required this.audioUrl});
 
-  factory PatternModel.from(Map<String, dynamic> json) {
-    return PatternModel(id: json['id'], imageUrl: json['image_url']);
+  factory MusicsModel.from(Map<String, dynamic> json) {
+    print(json);
+    return MusicsModel(id: json['id'], name: json['name'], audioUrl: json['audio_url']);
   }
 }

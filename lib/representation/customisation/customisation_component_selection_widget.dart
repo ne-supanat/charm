@@ -170,15 +170,15 @@ class CustomisationComponentSelectionWidget extends StatelessWidget {
   }
 
   Widget buildPatternSelection(BuildContext context, CustomisationState state, int columnCount) {
-    return buildBoxSelection<PatternModel>(
+    return buildBoxSelection<MusicsModel>(
       // context.read<ResourceBloc>().state.patterns.values.toList(),
       [
-        PatternModel(id: 1, imageUrl: "imageUrl"),
-        PatternModel(id: 2, imageUrl: "imageUrl"),
-        PatternModel(id: 3, imageUrl: "imageUrl"),
-        PatternModel(id: 4, imageUrl: "imageUrl"),
-        PatternModel(id: 5, imageUrl: "imageUrl"),
-        PatternModel(id: 6, imageUrl: "imageUrl"),
+        MusicsModel(id: 1, name: "1", audioUrl: "imageUrl"),
+        MusicsModel(id: 2, name: "2", audioUrl: "imageUrl"),
+        MusicsModel(id: 3, name: "3", audioUrl: "imageUrl"),
+        MusicsModel(id: 4, name: "4", audioUrl: "imageUrl"),
+        MusicsModel(id: 5, name: "5", audioUrl: "imageUrl"),
+        MusicsModel(id: 6, name: "6", audioUrl: "imageUrl"),
       ],
       (e) => _buildBox(
         onTap: () {

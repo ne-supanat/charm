@@ -1,10 +1,15 @@
+import 'package:audioplayers/audioplayers.dart';
+
+import 'select_audio_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../data/model/background_model.dart';
 import '../../data/model/tags_constant.dart';
 import '../../global/colors.dart';
 import '../../resources/resources.dart';
+import '../../widgets/app_icon_button.dart';
 import '../../widgets/charm.dart';
 import '../../widgets/orbiting_widget.dart';
 import '../resource_bloc.dart';
@@ -72,11 +77,11 @@ class DisplayNewView extends StatelessWidget {
                           builder: (context, state) {
                             return Visibility(
                               visible: state.displayedUI,
-                              child: buildButton(
+                              child: AppIconButton(
                                 onPressed: () {
                                   context.read<DisplayNewBloc>().updateDisplayUI(false);
                                 },
-                                imagePath: ImageIcons.hidden,
+                                icon: ImageIcon(AssetImage(ImageIcons.hidden)),
                               ),
                             );
                           },
@@ -94,7 +99,44 @@ class DisplayNewView extends StatelessWidget {
                               child: Row(
                                 spacing: 8,
                                 children: [
-                                  buildButton(
+                                  AppIconButton(
+                                    onPressed: () async {
+                                      final player = GetIt.I.get<AudioPlayer>();
+
+                                      await showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: false,
+                                        builder: (btContext) {
+                                          return SelectAudioBottomsheet(
+                                            selectedId: context
+                                                .read<DisplayNewBloc>()
+                                                .state
+                                                .selectedMusicId,
+                                            onChanged: (id) async {
+                                              context.read<DisplayNewBloc>().updateSelectedMusic(
+                                                id,
+                                              );
+
+                                              // Play new Music
+                                              await player.stop();
+                                              await player.play(
+                                                AssetSource(
+                                                  'musics/${context.read<ResourceBloc>().state.musics[id]!.audioUrl}',
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+
+                                      if (player.state == PlayerState.paused) {
+                                        // Resume Music
+                                        await player.resume();
+                                      }
+                                    },
+                                    icon: ImageIcon(AssetImage(ImageIcons.music)),
+                                  ),
+                                  AppIconButton(
                                     onPressed: () {
                                       showModalBottomSheet(
                                         context: context,
@@ -114,9 +156,9 @@ class DisplayNewView extends StatelessWidget {
                                         },
                                       );
                                     },
-                                    imagePath: ImageIcons.image,
+                                    icon: ImageIcon(AssetImage(ImageIcons.image)),
                                   ),
-                                  buildButton(
+                                  AppIconButton(
                                     onPressed: () {
                                       showModalBottomSheet(
                                         context: context,
@@ -142,7 +184,7 @@ class DisplayNewView extends StatelessWidget {
                                         },
                                       );
                                     },
-                                    imagePath: ImageIcons.star,
+                                    icon: ImageIcon(AssetImage(ImageIcons.star)),
                                   ),
                                 ],
                               ),
@@ -157,21 +199,6 @@ class DisplayNewView extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Widget buildButton({required void Function() onPressed, required String imagePath}) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: colorPrimary,
-        border: Border.all(color: colorSecondary, width: 2),
-        boxShadow: [BoxShadow(color: Colors.white, blurRadius: 5, offset: Offset(0, 0))],
-      ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: ImageIcon(AssetImage(imagePath), color: colorSecondary),
       ),
     );
   }

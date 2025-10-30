@@ -12,14 +12,14 @@ ThemeData theme = ThemeData(
   filledButtonTheme: FilledButtonThemeData(
     style: FilledButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: colorPrimary,
+      backgroundColor: colorSecondary,
       foregroundColor: colorWhite,
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      foregroundColor: colorPrimary,
+      foregroundColor: colorSecondary,
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(

@@ -1,3 +1,4 @@
+import 'package:charm/resources/resources.dart';
 import 'package:charm/widgets/tag_filter_button_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -164,11 +165,14 @@ class _SelectItemBottomsheetState extends State<SelectItemBottomsheet> {
                           ],
                         ),
                       ),
-                      AppIconButton(
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () {
-                          pushView(context, ItemDetailView(itemModel: item));
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: AppIconButton(
+                          icon: ImageIcon(AssetImage(ImageIcons.info)),
+                          onPressed: () {
+                            pushView(context, ItemDetailView(itemModel: item));
+                          },
+                        ),
                       ),
                     ],
                   ),

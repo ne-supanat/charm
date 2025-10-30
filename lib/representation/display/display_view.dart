@@ -35,20 +35,20 @@ class DisplayView extends StatelessWidget {
             ),
           ),
           Positioned(top: 16, left: 16, child: MainBackButton()),
-          Positioned(
-            top: 16,
-            right: 16,
-            child: AppIconButton(
-              onPressed: () {
-                pushView(
-                  context,
-                  DisplayDetailView(charmModel: charmModel),
-                  fullscreenDialog: true,
-                );
-              },
-              icon: Icon(Icons.info_outline),
-            ),
-          ),
+          // Positioned(
+          //   top: 16,
+          //   right: 16,
+          //   child: AppIconButton(
+          //     onPressed: () {
+          //       pushView(
+          //         context,
+          //         DisplayDetailView(charmModel: charmModel),
+          //         fullscreenDialog: true,
+          //       );
+          //     },
+          //     icon: Icon(Icons.info_outline),
+          //   ),
+          // ),
         ],
       ),
     );

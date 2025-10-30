@@ -39,3 +39,6 @@ groups:
   - path: assets/Jsons
     class_name: Jsons
     types: [.json]
+  - path: assets/musics
+    class_name: Musics
+    types: [.mp3]

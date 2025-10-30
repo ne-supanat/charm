@@ -21,7 +21,7 @@ class DisplayDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       title: charmModel.title,
-      actions: [AppIconButton(onPressed: Navigator.of(context).pop, icon: Icon(Icons.close))],
+      // actions: [AppIconButton(onPressed: Navigator.of(context).pop, icon: Icon(Icons.close))],
       showBack: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),

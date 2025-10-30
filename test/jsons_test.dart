@@ -7,5 +7,6 @@ void main() {
   test('jsons assets test', () {
     expect(File(Jsons.backgrounds).existsSync(), isTrue);
     expect(File(Jsons.items).existsSync(), isTrue);
+    expect(File(Jsons.musics).existsSync(), isTrue);
   });
 }
