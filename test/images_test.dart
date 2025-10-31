@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('images assets test', () {
+    expect(File(Images.app).existsSync(), isTrue);
     expect(File(Images.bgBeachMobile).existsSync(), isTrue);
     expect(File(Images.bgBeachWeb).existsSync(), isTrue);
     expect(File(Images.bgCityMobile).existsSync(), isTrue);
@@ -19,6 +20,7 @@ void main() {
     expect(File(Images.itemHorseshoe).existsSync(), isTrue);
     expect(File(Images.itemPairOfCranes).existsSync(), isTrue);
     expect(File(Images.itemPeony).existsSync(), isTrue);
+    expect(File(Images.kofi).existsSync(), isTrue);
     expect(File(Images.objectSakura).existsSync(), isTrue);
     expect(File(Images.starBottom).existsSync(), isTrue);
     expect(File(Images.starTop).existsSync(), isTrue);

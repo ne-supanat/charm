@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'select_audio_bottomsheet.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,29 @@ class DisplayNewView extends StatelessWidget {
                         ),
                       ),
                       Padding(padding: const EdgeInsets.all(16.0), child: OrbitingWidget()),
+                      Positioned(
+                        top: 16,
+                        right: 16,
+                        child: BlocBuilder<DisplayNewBloc, DisplayNewState>(
+                          buildWhen: (previous, current) =>
+                              previous.displayedUI != current.displayedUI,
+                          builder: (context, state) {
+                            return Visibility(
+                              visible: state.displayedUI,
+                              child: InkWell(
+                                onTap: () async {
+                                  final url = 'https://ko-fi.com/nheetial';
+                                  if (!await launchUrl(Uri.parse(url))) {
+                                    throw Exception('Could not launch $url');
+                                  }
+                                },
+                                child: Image.asset(Images.kofi, height: 48),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
                       Positioned(
                         bottom: 16,
                         left: 16,
